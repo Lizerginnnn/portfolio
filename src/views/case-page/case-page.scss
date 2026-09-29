@@ -1,0 +1,56 @@
+@use "abstracts" as *;
+
+// Поля страницы кейса по фреймам 393 / 768 / 1280 / 1440 / 1920 (отличаются от главной)
+.case-page {
+  --case-pad: 20px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow-x: clip;
+
+  @include mq(md) {
+    --case-pad: 32px;
+  }
+
+  @include mq(lg) {
+    --case-pad: 48px;
+  }
+
+  @include mq(xl) {
+    --case-pad: 56px;
+  }
+
+  @include mq(xxl) {
+    --case-pad: 80px;
+  }
+
+  &__main {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    padding: 32px 0;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    padding-inline: var(--case-pad);
+  }
+
+  // «← Все проекты» над вводным блоком
+  &__back {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    height: 44px;
+    margin-bottom: 16px;
+    color: var(--blue-700);
+    @include transition(color);
+
+    &:hover,
+    &:focus-visible {
+      color: var(--blue-900);
+    }
+  }
+}

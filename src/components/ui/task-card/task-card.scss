@@ -1,0 +1,64 @@
+@use "abstracts" as *;
+
+// Size=Mobile → Tablet (768) → Desktop (1280)
+.task-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px;
+  border: 0.5px solid var(--grey-2);
+  border-radius: 16px;
+  background: var(--grey-0);
+  box-shadow: var(--shadow-11);
+
+  @include mq(md) {
+    gap: 16px;
+    padding: 32px;
+    border-width: 1px;
+  }
+
+  &__header {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+
+    @include mq(md) {
+      align-items: center;
+    }
+  }
+
+  &__number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: 28px;
+    height: 28px;
+    margin-top: 2px;
+    border-radius: 50%;
+    background: var(--blue-100);
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 19.5px;
+    color: var(--blue-700);
+
+    @include mq(md) {
+      width: 32px;
+      height: 32px;
+      margin-top: 0;
+      font-size: 14px;
+      line-height: 21px;
+    }
+  }
+
+  &__title {
+    flex: 1 1 0;
+    min-width: 0;
+
+    // в TaskCard / Mobile и Tablet межстрочный 17px (у t2b — 19.5px)
+    @include mq-down(lg) {
+      line-height: 17px;
+    }
+  }
+}

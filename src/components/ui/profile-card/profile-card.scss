@@ -1,0 +1,124 @@
+@use "abstracts" as *;
+
+// Mobile (393 / 703 / 768) → Desk (1280 / 1440) → HD (1920)
+.profile-card {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 24px;
+  border-radius: 20px;
+  background: var(--grey-8);
+
+  @include mq(lg) {
+    justify-content: space-between;
+    gap: 24px;
+    padding: 32px;
+    border-radius: 25px;
+  }
+
+  @include mq(xl) {
+    min-height: 421px;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    @include mq(lg) {
+      gap: 10px;
+    }
+  }
+
+  &__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px 12px;
+  }
+
+  // город и описание — <Typography color="blue-200">, в макете с прозрачностью 50%
+  &__muted {
+    opacity: 0.5;
+  }
+
+  &__role {
+    font-family: var(--font-mono);
+    font-weight: 400;
+    // 36px на 393; на узких телефонах (320) чуть уменьшаем, чтобы не вылезать из карточки
+    font-size: clamp(28px, calc(9vw + 1px), 36px);
+    line-height: 1.1;
+    letter-spacing: -1.5px;
+    color: var(--grey-0);
+    white-space: nowrap;
+
+    @include mq(lg) {
+      font-size: 52px;
+      line-height: 96px;
+      letter-spacing: -2.18px;
+    }
+
+    @include mq(xl) {
+      font-size: 72px;
+    }
+
+    @include mq(xxl) {
+      font-size: 80px;
+    }
+  }
+
+  &__desktop-only {
+    display: none;
+
+    @include mq(lg) {
+      display: inline;
+    }
+  }
+
+  &__mobile-only {
+    @include mq(lg) {
+      display: none;
+    }
+  }
+
+  &__contacts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  &__contact {
+    flex: 1 0 0;
+
+    &--phone {
+      min-width: 158px;
+    }
+
+    &--email {
+      min-width: 190px;
+
+      @include mq(lg) {
+        flex: 0 0 190px;
+      }
+    }
+
+    &--telegram,
+    &--behance {
+      min-width: 112px;
+    }
+
+    &--telegram {
+      @include mq(lg) {
+        min-width: 110px;
+      }
+    }
+
+    // все четыре кнопки в один ряд, даже когда полоса прокрутки съедает ~15px ширины
+    @include mq(xl) {
+      &#{&} {
+        min-width: max-content;
+      }
+    }
+  }
+}

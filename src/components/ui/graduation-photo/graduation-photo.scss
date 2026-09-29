@@ -1,0 +1,16 @@
+@use "abstracts" as *;
+
+.graduation-photo {
+  width: 100%;
+  aspect-ratio: 416 / 381.226;
+  @include cover-frame(25px);
+
+  &__image {
+    filter: grayscale(1);
+    transition: filter 0.4s ease;
+  }
+
+  &:hover &__image {
+    filter: none;
+  }
+}

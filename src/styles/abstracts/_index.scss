@@ -1,0 +1,6 @@
+// Подключается в каждом .scss компонента: @use "abstracts" as *;
+// Только переменные и миксины — CSS отсюда не генерируется.
+@forward "breakpoints";
+@forward "colors";
+@forward "typography";
+@forward "mixins";

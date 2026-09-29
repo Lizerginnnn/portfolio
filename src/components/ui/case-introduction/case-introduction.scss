@@ -1,0 +1,80 @@
+@use "abstracts" as *;
+
+// Size=Mobile (393 / 768) → Size=Desktop (1280 / 1440 / 1920). Текст — <Typography>.
+.case-intro {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+  border-radius: 24px;
+  background: var(--blue-50);
+  overflow: hidden;
+
+  @include mq(lg) {
+    flex-direction: row;
+    align-items: center;
+    gap: 40px;
+    padding: 32px;
+    border-radius: 39px;
+  }
+
+  &__copy {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 0;
+
+    @include mq(lg) {
+      flex: 1 1 0;
+      align-self: stretch;
+      justify-content: space-between;
+      gap: 24px;
+    }
+  }
+
+  &__summary {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  &__lead {
+    max-width: 720px;
+  }
+
+  &__details {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    row-gap: 16px;
+
+    @include mq(lg) {
+      justify-content: flex-start;
+      gap: 20px;
+    }
+  }
+
+  &__detail {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 150px;
+
+    @include mq(lg) {
+      width: 190px;
+    }
+  }
+
+  &__hero {
+    flex: none;
+    width: 100%;
+    height: 220px;
+    @include cover-frame(24px);
+
+    @include mq(lg) {
+      width: 480px;
+      height: 383px;
+    }
+  }
+}

@@ -1,0 +1,35 @@
+@use "sass:map";
+@use "sass:meta";
+
+// Брейкпоинты макетов: 393 → 703 → 768 → 1280 → 1440 → 1920 (mobile-first)
+$breakpoints: (
+  "sm": 600px,
+  "md": 768px,
+  "lg": 1280px,
+  "xl": 1440px,
+  "xxl": 1920px,
+);
+
+/// Стили от ширины и выше: @include mq(lg) { ... }
+/// Для разовой точки перестройки конкретного блока можно передать ширину: @include mq(980px) { ... }
+@mixin mq($name) {
+  $width: $name;
+
+  @if meta.type-of($name) != "number" {
+    @if not map.has-key($breakpoints, $name) {
+      @error "Неизвестный брейкпоинт `#{$name}`. Доступны: #{map.keys($breakpoints)}";
+    }
+    $width: map.get($breakpoints, $name);
+  }
+
+  @media (min-width: $width) {
+    @content;
+  }
+}
+
+/// Стили до ширины (не включая её): @include mq-down(md) { ... }
+@mixin mq-down($name) {
+  @media (max-width: (map.get($breakpoints, $name) - 1px)) {
+    @content;
+  }
+}

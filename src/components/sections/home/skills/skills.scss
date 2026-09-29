@@ -1,0 +1,58 @@
+@use "abstracts" as *;
+
+.skills {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  @include mq(md) {
+    gap: 24px;
+  }
+
+  @include mq(lg) {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 32px;
+  }
+
+  &__heading {
+    @include mq(lg) {
+      flex: none;
+      width: 159px;
+    }
+
+    @include mq(xxl) {
+      width: 407px;
+    }
+  }
+
+  &__accordion {
+    @include mq(lg) {
+      display: none;
+    }
+  }
+
+  &__columns {
+    display: none;
+
+    @include mq(lg) {
+      display: grid;
+      grid-template-columns: 320px 328px minmax(219px, 1fr);
+      gap: 12px;
+      width: 991px;
+      max-width: 100%;
+      padding-top: 38px;
+    }
+
+    @include mq(xxl) {
+      grid-template-columns: 320px 328px 219px;
+      justify-content: space-between;
+      width: 1193px;
+    }
+  }
+
+  &__list {
+    padding-top: 14px;
+  }
+}

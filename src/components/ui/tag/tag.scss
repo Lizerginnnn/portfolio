@@ -1,0 +1,19 @@
+// Текст — <Typography variant="tag">, здесь только форма и фон
+.tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 12px;
+  border: 0.5px solid;
+  border-radius: 15px;
+
+  &--dark {
+    background: rgba(46, 129, 168, 0.2);
+    border-color: rgba(46, 129, 168, 0.5);
+  }
+
+  &--light {
+    background: var(--blue-100);
+    border-color: var(--blue-300);
+  }
+}

@@ -1,0 +1,102 @@
+@use "abstracts" as *;
+
+// mobile (393 / 703 / 768) → Default (lg+): у компонента фиксированный отступ 56px
+.site-footer {
+  display: flex;
+  flex-direction: column;
+  padding: 40px var(--page-pad);
+  background: var(--grey-8);
+
+  @include mq(lg) {
+    padding: 72px 56px 40px;
+  }
+
+  &__contact {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 28px;
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    @include mq(lg) {
+      width: 656px;
+    }
+  }
+
+  &__title {
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 50px;
+    letter-spacing: -0.5px;
+    color: var(--grey-0);
+
+    @include mq(lg) {
+      font-size: 64px;
+      line-height: 65px;
+      letter-spacing: -1px;
+    }
+  }
+
+  &__title-accent {
+    color: var(--blue-mist);
+  }
+
+  &__text {
+    opacity: 0.5;
+
+    @include mq(lg) {
+      width: 683px;
+    }
+  }
+
+  &__bottom {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 0.62px solid rgba(255, 255, 255, 0.08);
+  }
+
+  &__links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+
+    @include mq(lg) {
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 8px 20px;
+    }
+  }
+
+  &__link {
+    font-family: var(--font-inter);
+    font-size: 13px;
+    line-height: 19.5px;
+    color: rgba(255, 255, 255, 0.4);
+    white-space: nowrap;
+    @include transition(color);
+
+    &:hover,
+    &:focus-visible {
+      color: rgba(255, 255, 255, 0.8);
+    }
+  }
+
+  &__copyright {
+    font-family: var(--font-inter);
+    font-size: 12px;
+    line-height: 18px;
+    color: rgba(255, 255, 255, 0.25);
+    white-space: nowrap;
+  }
+}

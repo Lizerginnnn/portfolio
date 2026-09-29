@@ -1,0 +1,117 @@
+@use "abstracts" as *;
+
+.project-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  padding: 16px 24px;
+  border-radius: 13px;
+  background: var(--grey-0);
+  box-shadow: var(--shadow-card);
+  @include transition(background-color, box-shadow);
+
+  // Variant2 из ui-kit
+  &:hover,
+  &:focus-within {
+    background: var(--blue-50);
+    box-shadow:
+      inset 0 0 0 1px rgba(34, 104, 137, 0.2),
+      var(--shadow-card-hover);
+  }
+
+  &__media {
+    aspect-ratio: 498 / 257;
+    width: 100%;
+    @include cover-frame(11px);
+  }
+
+  &__tags {
+    position: absolute;
+    left: 8px;
+    bottom: 12px;
+    display: flex;
+    gap: 4px;
+    opacity: 0;
+    transform: translateY(4px);
+    @include transition(opacity, transform);
+  }
+
+  &:hover &__tags,
+  &:focus-within &__tags {
+    opacity: 1;
+    transform: none;
+  }
+
+  &__chip {
+    padding: 3px 8px;
+    border-radius: 8px;
+    background: rgba(209, 227, 238, 0.8);
+  }
+
+  &__info {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    row-gap: 4px;
+    column-gap: 8px;
+    padding-top: 12px;
+  }
+
+  &__titles {
+    display: flex;
+    flex-direction: column;
+  }
+
+  // 12px SemiBold uppercase — в текстовых стилях Figma такого нет, поэтому отдельно
+  &__kicker {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 19.5px;
+    text-transform: uppercase;
+    color: var(--blue-400);
+  }
+
+  &__badge {
+    padding: 4px 9px;
+    border-radius: 8px;
+    background: var(--blue-100);
+  }
+
+  // Inter 13/20.8 — в текстовых стилях Figma такого нет, поэтому отдельно
+  &__description {
+    font-family: var(--font-inter);
+    font-size: 13px;
+    line-height: 20.8px;
+    color: var(--grey-5);
+  }
+
+  // «Смотреть →» прижат к низу, когда карточка растянута до высоты ряда
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: auto;
+  }
+
+  // ui-kit → Link (0:5917)
+  &__more {
+    color: var(--blue-700);
+    @include transition(color);
+
+    &:hover,
+    &:focus-visible {
+      color: var(--blue-900);
+    }
+
+    // ссылка растянута на всю карточку
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 13px;
+    }
+  }
+}

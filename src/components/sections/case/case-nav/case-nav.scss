@@ -1,0 +1,26 @@
+@use "abstracts" as *;
+
+.case-nav {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 16px;
+  padding-inline: var(--case-pad);
+
+  // на мобильных — короткое название следующего проекта
+  &__title {
+    &--full {
+      display: none;
+
+      @include mq(md) {
+        display: inline;
+      }
+    }
+
+    &--short {
+      @include mq(md) {
+        display: none;
+      }
+    }
+  }
+}

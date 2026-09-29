@@ -1,0 +1,13 @@
+@use "abstracts" as *;
+
+.section-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  &__title {
+    @include mq(md) {
+      white-space: nowrap;
+    }
+  }
+}

@@ -1,0 +1,99 @@
+@use "abstracts" as *;
+
+// 393 / 768: цель и подход стопкой → lg: две колонки
+.case-context {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  @include mq(lg) {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+
+  &__goal {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding-block: 32px;
+
+    @include mq(lg) {
+      max-width: 860px;
+      padding-right: 32px;
+    }
+  }
+
+  &__goal-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__approach {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 0;
+    padding-block: 32px;
+
+    @include mq(lg) {
+      padding-inline: 32px;
+    }
+  }
+
+  &__step {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    padding-block: 24px;
+    border-bottom: 1px solid var(--grey-2);
+
+    @include mq(lg) {
+      gap: 32px;
+      padding-block: 28px;
+
+      // линия под последним шагом не нужна, если после шагов ничего нет (нет блока «Объём реализации»)
+      .case-context__steps:last-child &:last-child {
+        border-bottom: 0;
+      }
+    }
+  }
+
+  &__step-number {
+    flex: none;
+    width: 32px;
+    // в макете — #d2d2d2, отдельного токена в файле нет
+    color: #d2d2d2;
+
+    @include mq(lg) {
+      padding-top: 4px;
+    }
+  }
+
+  &__step-copy {
+    display: flex;
+    flex: 1 1 0;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+  }
+
+  // «Объём реализации» (кейс «Смарт»)
+  &__scope {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 20px;
+  }
+
+  &__scope-item {
+    display: flex;
+    gap: 0.4em;
+
+    &::before {
+      content: "•";
+      flex: none;
+    }
+  }
+}

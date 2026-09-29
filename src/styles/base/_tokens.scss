@@ -1,0 +1,54 @@
+@use "../abstracts" as *;
+
+// Дизайн-токены из Figma-файла «portfolio» (ui-kit, node 114:3436).
+// Имена повторяют переменные файла: grey/0…8, blue/50…900, blue/mist, эффект 11.
+:root {
+  // grey
+  --grey-0: #ffffff;
+  --grey-05: #fafafa;
+  --grey-2: #e5e5e5;
+  --grey-4: #b0b0b0;
+  --grey-5: #777777;
+  --grey-6: #4d4d4d;
+  --grey-7: #333333;
+  --grey-8: #282828;
+
+  // blue
+  --blue-50: #f3f8fb;
+  --blue-100: #e3eff6;
+  --blue-150: #d1e3ee;
+  --blue-200: #b3d1e2;
+  --blue-300: #90bcd4;
+  --blue-400: #78acc8;
+  --blue-500: #4f98bc;
+  --blue-600: #2e81a8;
+  --blue-700: #226889;
+  --blue-900: #12394c;
+  --blue-mist: #97c7e2;
+
+  // effects
+  --shadow-11: 0 4px 16px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.07);
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.07), 0 4px 16px rgba(0, 0, 0, 0.05);
+  --shadow-card-hover: 0 1px 3px rgba(86, 183, 239, 0.07), 0 4px 16px rgba(86, 183, 239, 0.05);
+
+  // fonts (переменные шрифтов подключаются в app/layout.tsx)
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-inter: var(--font-inter-family), system-ui, sans-serif;
+
+  // layout
+  --page-pad: 20px;
+  --nav-h: 78px;
+
+  @include mq(md) {
+    --page-pad: 32px;
+  }
+
+  @include mq(xl) {
+    --page-pad: 56px;
+  }
+
+  @include mq(xxl) {
+    --page-pad: 128px;
+  }
+}

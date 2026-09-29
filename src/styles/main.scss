@@ -1,0 +1,5 @@
+// Глобальные стили — подключаются один раз в app/layout.tsx.
+// Стили блоков (БЭМ) лежат рядом с компонентами: components/**/Block/Block.scss.
+@use "base/tokens";
+@use "base/reset";
+@use "base/utilities";

@@ -1,0 +1,40 @@
+@use "sass:map";
+@use "abstracts" as *;
+
+// Модификаторы генерируются из дизайн-системы:
+// .typography--h2, .typography--lg-h1 (с брейкпоинта), .typography--color-grey-8, …
+.typography {
+  // базовые стили
+  @each $name, $_ in $text-styles {
+    &--#{$name} {
+      @include text-style($name);
+    }
+  }
+
+  // стиль с брейкпоинта: variant={{ base: "h2", lg: "h1" }}
+  @each $bp, $_ in $breakpoints {
+    @include mq($bp) {
+      @each $name, $_ in $text-styles {
+        &--#{$bp}-#{$name} {
+          @include text-style($name);
+        }
+      }
+    }
+  }
+
+  @each $token in $color-tokens {
+    &--color-#{$token} {
+      color: var(--#{$token});
+    }
+  }
+
+  @each $align in (left, center, right) {
+    &--align-#{$align} {
+      text-align: $align;
+    }
+  }
+
+  &--nowrap {
+    white-space: nowrap;
+  }
+}

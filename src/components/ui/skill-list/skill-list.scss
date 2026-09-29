@@ -1,0 +1,21 @@
+.skill-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    // маркер-точка blue/400
+    &::before {
+      content: "";
+      flex: none;
+      width: 5px;
+      height: 5px;
+      border-radius: 2.5px;
+      background: var(--blue-400);
+    }
+  }
+}

@@ -1,0 +1,116 @@
+@use "sass:map";
+
+// Текстовые стили из Figma (ui-kit → Typography). Line-height 100 в Figma = normal.
+// Единый источник: и для компонента <Typography>, и для миксинов в .scss.
+$text-styles: (
+  "h1": (
+    font-family: var(--font-sans),
+    font-weight: 700,
+    font-size: 80px,
+    line-height: 73.67px,
+    letter-spacing: -1px,
+  ),
+  "h2": (
+    font-family: var(--font-sans),
+    font-weight: 700,
+    font-size: 34px,
+    line-height: 37.4px,
+    letter-spacing: -0.5px,
+  ),
+  "h3": (
+    font-family: var(--font-sans),
+    font-weight: 700,
+    font-size: 24px,
+    line-height: normal,
+    letter-spacing: -0.5px,
+  ),
+  "h-accent": (
+    font-family: var(--font-mono),
+    font-weight: 400,
+    font-size: 72px,
+    line-height: 96px,
+    letter-spacing: -2.18px,
+  ),
+  "t1": (
+    font-family: var(--font-sans),
+    font-weight: 400,
+    font-size: 20px,
+    line-height: normal,
+    letter-spacing: -0.5px,
+  ),
+  "t1b": (
+    font-family: var(--font-sans),
+    font-weight: 600,
+    font-size: 20px,
+    line-height: normal,
+    letter-spacing: -0.5px,
+  ),
+  "t2": (
+    font-family: var(--font-sans),
+    font-weight: 400,
+    font-size: 16px,
+    line-height: normal,
+    letter-spacing: 0,
+  ),
+  "t2b": (
+    font-family: var(--font-sans),
+    font-weight: 600,
+    font-size: 16px,
+    line-height: 19.5px,
+    letter-spacing: 0,
+  ),
+  "t3": (
+    font-family: var(--font-sans),
+    font-weight: 400,
+    font-size: 13px,
+    line-height: normal,
+    letter-spacing: 0,
+  ),
+  "t3b": (
+    font-family: var(--font-sans),
+    font-weight: 500,
+    font-size: 13px,
+    line-height: 19.5px,
+    letter-spacing: 0,
+  ),
+  "t4": (
+    font-family: var(--font-sans),
+    font-weight: 400,
+    font-size: 11px,
+    line-height: normal,
+    letter-spacing: 0,
+  ),
+  "tag": (
+    font-family: var(--font-mono),
+    font-weight: 600,
+    font-size: 12px,
+    line-height: 18px,
+    letter-spacing: 0.96px,
+    text-transform: uppercase,
+  ),
+);
+
+/// Применить текстовый стиль из Figma: @include text-style(t2b);
+@mixin text-style($name) {
+  @if not map.has-key($text-styles, $name) {
+    @error "Неизвестный текстовый стиль `#{$name}`. Доступны: #{map.keys($text-styles)}";
+  }
+
+  @each $property, $value in map.get($text-styles, $name) {
+    #{$property}: $value;
+  }
+}
+
+// Короткие алиасы — имена как в Figma
+@mixin h1 { @include text-style("h1"); }
+@mixin h2 { @include text-style("h2"); }
+@mixin h3 { @include text-style("h3"); }
+@mixin h-accent { @include text-style("h-accent"); }
+@mixin t1 { @include text-style("t1"); }
+@mixin t1b { @include text-style("t1b"); }
+@mixin t2 { @include text-style("t2"); }
+@mixin t2b { @include text-style("t2b"); }
+@mixin t3 { @include text-style("t3"); }
+@mixin t3b { @include text-style("t3b"); }
+@mixin t4 { @include text-style("t4"); }
+@mixin tag-text { @include text-style("tag"); }

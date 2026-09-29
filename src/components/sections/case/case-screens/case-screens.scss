@@ -1,0 +1,63 @@
+@use "abstracts" as *;
+
+.case-screens {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 56px var(--case-pad);
+  // в макете #f4f8fb — визуально совпадает с blue/50
+  background: var(--blue-50);
+
+  // .case-screens в начале — чтобы перебить gap у .section-heading
+  & &__heading {
+    @include mq(md) {
+      gap: 8px;
+    }
+  }
+
+  &__gallery {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+
+    @include mq(md) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__frame {
+    display: flex;
+    justify-content: center;
+    // пропорция кадра задаётся кейсом (screensRatio), по умолчанию — как в макете SellSaver
+    aspect-ratio: var(--screen-ratio, 651 / 451.875);
+    background: var(--grey-8);
+    @include cover-frame(16px);
+  }
+
+  &__image {
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    // кадр 602.5 из 651 — по бокам видна тёмная подложка
+    &--inset {
+      @include mq(md) {
+        width: 92.55%;
+      }
+    }
+  }
+
+  &__caption {
+    font-family: var(--font-sans);
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    color: var(--grey-5);
+  }
+}

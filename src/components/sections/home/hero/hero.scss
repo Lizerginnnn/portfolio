@@ -1,0 +1,219 @@
+@use "abstracts" as *;
+
+// DOM: name, card, middle(fact--first, fact--second), side(photo, fact--third).
+// < lg: обёртки middle/side «растворяются», всё раскладывается гридом в одну колонку.
+// ≥ lg: три колонки; с xl правая колонка поднимается на строку с именем.
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 231fr) minmax(0, 118fr);
+  grid-template-areas:
+    "name photo"
+    "card card"
+    "f1 f1"
+    "f2 f2"
+    "f3 f3";
+  column-gap: 4px;
+  row-gap: 12px;
+  padding-bottom: 24px;
+
+  @include mq(sm) {
+    grid-template-columns: minmax(0, 1fr) 120px;
+  }
+
+  @include mq(lg) {
+    grid-template-columns: minmax(0, 1fr) 322px 323px;
+    grid-template-areas:
+      "name name name"
+      "card middle side";
+    column-gap: 8px;
+    row-gap: 24px;
+    padding-bottom: 0;
+  }
+
+  @include mq(xl) {
+    grid-template-areas:
+      "name name side"
+      "card middle side";
+    column-gap: 12px;
+    row-gap: 11px;
+  }
+
+  @include mq(xxl) {
+    column-gap: 15px;
+  }
+
+  // стиль — <Typography variant={{ base: "h2", lg: "h1" }}>; здесь только плавающий размер до lg
+  &__name {
+    grid-area: name;
+    font-size: clamp(26px, calc((100vw - 40px) / 10), 34px);
+    line-height: 1.1;
+
+    @include mq(sm) {
+      align-self: center;
+      font-size: clamp(48px, calc((100vw - 164px) / 6.5), 80px);
+      line-height: 0.92;
+      letter-spacing: -1px;
+    }
+
+    @include mq(lg) {
+      align-self: start;
+      font-size: 80px;
+      line-height: 73.67px;
+      white-space: nowrap;
+    }
+  }
+
+  &__card {
+    grid-area: card;
+    margin-top: 4px;
+
+    @include mq(md) {
+      margin-top: 12px;
+    }
+
+    @include mq(lg) {
+      margin-top: 0;
+    }
+  }
+
+  &__middle,
+  &__side {
+    display: contents;
+
+    @include mq(lg) {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  &__middle {
+    @include mq(lg) {
+      grid-area: middle;
+      gap: 15px;
+    }
+  }
+
+  // Карточка и средняя колонка тянутся на всю высоту второй строки грида — верх и низ у них совпадают.
+  // Правая колонка занимает обе строки (с xl) и прижата к низу.
+  &__side {
+    @include mq(lg) {
+      grid-area: side;
+      gap: 13px;
+    }
+
+    @include mq(xl) {
+      align-self: end;
+    }
+  }
+
+  // Фото: на мобильном — горизонтальное окно в вертикальный кадр
+  &__photo {
+    --crop-w: 171.03%;
+    --crop-h: 101.64%;
+    --crop-x: -46.96%;
+    --crop-y: -28.87%;
+    grid-area: photo;
+    align-self: start;
+    width: 100%;
+    aspect-ratio: 122 / 74;
+    @include cover-frame(20px);
+
+    @include mq(sm) {
+      --crop-w: 171.03%;
+      --crop-h: 172.11%;
+      --crop-x: -47.83%;
+      --crop-y: -40.38%;
+      align-self: stretch;
+      aspect-ratio: 120 / 159;
+    }
+
+    @include mq(lg) {
+      --crop-w: 150.72%;
+      --crop-h: 258.6%;
+      --crop-x: -38.09%;
+      --crop-y: -73.1%;
+      flex: 1 1 auto;
+      min-height: 200px;
+      aspect-ratio: auto;
+      border-radius: 25px;
+    }
+
+    @include mq(xl) {
+      --crop-w: 189.94%;
+      --crop-h: 243.45%;
+      --crop-x: -63.78%;
+      --crop-y: -57.65%;
+      flex: none;
+      aspect-ratio: 317 / 330;
+    }
+  }
+
+  &__photo-inner {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 118 / 264.75;
+
+    @include mq(sm) {
+      position: absolute;
+      inset: 0;
+      aspect-ratio: auto;
+    }
+  }
+
+  // Факты
+  &__fact {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    padding: 32px 24px;
+    border-radius: 25px;
+    background: var(--blue-100);
+
+    &--first {
+      grid-area: f1;
+      margin-top: 4px;
+
+      @include mq(md) {
+        margin-top: 16px;
+      }
+
+      @include mq(lg) {
+        margin-top: 0;
+      }
+    }
+
+    &--second {
+      grid-area: f2;
+      gap: 4px;
+    }
+
+    &--third {
+      grid-area: f3;
+      min-height: 168px;
+
+      @include mq(md) {
+        min-height: 0;
+      }
+
+      @include mq(lg) {
+        flex: none;
+        height: 168px;
+      }
+    }
+
+    // внутри колонок middle/side грид-области не нужны
+    &--first,
+    &--second,
+    &--third {
+      @include mq(lg) {
+        grid-area: auto;
+      }
+    }
+  }
+
+  // выделение внутри t1 — вес как у t1b
+  &__fact-title strong {
+    font-weight: 600;
+  }
+}

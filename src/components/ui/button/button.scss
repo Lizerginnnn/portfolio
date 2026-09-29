@@ -1,0 +1,103 @@
+@use "abstracts" as *;
+
+// ui-kit → button (0:4739): mode 1 / 2 × default / hover
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border-width: 0.62px;
+  border-style: solid;
+  white-space: nowrap;
+  @include transition(background-color, border-color, box-shadow, color);
+
+  &__icon {
+    position: relative;
+    flex: none;
+    width: 15px;
+    height: 15px;
+  }
+
+  &__icon-layer {
+    display: flex;
+    position: absolute;
+    inset: 0;
+    @include transition(opacity);
+
+    &--hover {
+      opacity: 0;
+    }
+  }
+
+  &:hover &__icon-layer--hover,
+  &:focus-visible &__icon-layer--hover {
+    opacity: 1;
+  }
+
+  &:hover &__icon-layer--default,
+  &:focus-visible &__icon-layer--default {
+    opacity: 0;
+  }
+
+  // mode=1 — светлая
+  &--mode-1 {
+    padding: 12px 16px;
+    border-radius: 12px;
+    background: var(--blue-100);
+    border-color: rgba(0, 0, 0, 0.07);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    color: var(--grey-7);
+    @include t2;
+
+    &:hover,
+    &:focus-visible {
+      background: var(--blue-mist);
+      border-color: var(--blue-mist);
+      box-shadow: 0 4px 8px rgba(86, 183, 239, 0.27);
+      color: var(--grey-8);
+    }
+  }
+
+  // mode=2 — на тёмной карточке
+  &--mode-2,
+  &--mode-2-light {
+    padding: 8px 14px;
+    border-radius: 10px;
+    background: rgba(120, 172, 200, 0.1);
+    border-color: rgba(176, 176, 176, 0.1);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+    color: var(--grey-05);
+    @include t3b;
+
+    .button__label {
+      opacity: 0.8;
+      @include transition(opacity);
+    }
+
+    &:hover,
+    &:focus-visible {
+      background: rgba(120, 172, 200, 0.4);
+      border-color: rgba(120, 172, 200, 0.4);
+      box-shadow: 0 4px 16px rgba(86, 183, 239, 0.35);
+      color: var(--grey-0);
+
+      .button__label {
+        opacity: 1;
+      }
+    }
+  }
+
+  // mode=2 на светлом фоне (страница кейса)
+  &--mode-2-light {
+    background: rgba(18, 57, 76, 0.1);
+    color: var(--grey-6);
+
+    &:hover,
+    &:focus-visible {
+      background: rgba(18, 57, 76, 0.16);
+      border-color: rgba(176, 176, 176, 0.1);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+      color: var(--grey-8);
+    }
+  }
+}

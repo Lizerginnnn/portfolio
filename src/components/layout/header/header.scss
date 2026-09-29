@@ -1,0 +1,160 @@
+@use "abstracts" as *;
+
+// mobile: логотип + бургер → md: + «Связаться» → lg: полное меню
+.site-header {
+  --header-pad: 20px;
+  position: relative;
+  z-index: 20;
+  background: var(--grey-0);
+
+  @include mq(md) {
+    --header-pad: 32px;
+  }
+
+  @include mq(lg) {
+    --header-pad: 56px;
+  }
+
+  &__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    height: var(--nav-h);
+    padding: 0 var(--header-pad);
+    border-bottom: 0.62px solid rgba(0, 0, 0, 0.07);
+    background: var(--grey-0);
+  }
+
+  // Geist Mono Medium 15/22.5 — в текстовых стилях Figma такого нет, поэтому отдельно
+  &__logo {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 22.5px;
+    color: var(--grey-7);
+    white-space: nowrap;
+  }
+
+  &__nav {
+    display: none;
+    align-items: center;
+    gap: 24px;
+
+    @include mq(lg) {
+      display: flex;
+    }
+  }
+
+  // ui-kit → menu link (0:4772): hover = Variant2
+  &__link {
+    color: var(--grey-6);
+    @include transition(color, box-shadow);
+
+    &:hover,
+    &:focus-visible {
+      color: var(--grey-8);
+      box-shadow: 0 1px 0 var(--grey-8);
+    }
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  // двойной класс — чтобы перебить display у блока .button
+  &__contact#{&}__contact {
+    display: none;
+    width: 158.24px;
+
+    @include mq(md) {
+      display: inline-flex;
+    }
+  }
+
+  // в открытом состоянии в шапке остаётся только крестик
+  &--menu-open &__contact#{&}__contact {
+    display: none;
+  }
+
+  &__toggle {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 44px;
+    height: 44px;
+
+    @include mq(lg) {
+      display: none;
+    }
+  }
+
+  &__burger {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+  }
+
+  &__burger-line {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    background: var(--grey-8);
+
+    &--short {
+      width: 16px;
+    }
+  }
+
+  // Раскрытое меню (stat=Open) — поверх контента, без сдвига страницы
+  &__menu {
+    position: absolute;
+    top: var(--nav-h);
+    left: 0;
+    right: 0;
+    padding: 0 var(--header-pad) 28px;
+    background: var(--grey-0);
+    box-shadow: 0 16px 24px rgba(0, 0, 0, 0.06);
+
+    &[hidden] {
+      display: none;
+    }
+
+    &::before {
+      content: "";
+      display: block;
+      height: 1px;
+      background: #e8e8e8;
+    }
+
+    @include mq(lg) {
+      display: none;
+    }
+  }
+
+  &__menu-list {
+    padding: 14px 0 18px;
+  }
+
+  &__menu-link {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: 52px;
+    border-bottom: 0.5px solid var(--grey-2);
+    color: var(--grey-6);
+    @include transition(color);
+
+    &:hover,
+    &:focus-visible {
+      color: var(--grey-8);
+    }
+  }
+
+  &__menu-contact {
+    width: 100%;
+  }
+}

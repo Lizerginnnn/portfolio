@@ -1,0 +1,23 @@
+.skill-group {
+  border-bottom: 1px solid var(--grey-2);
+
+  &__trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+    min-height: 44px;
+    padding: 16px 0;
+    text-align: left;
+  }
+
+  &__icon {
+    display: flex;
+    flex: none;
+  }
+
+  &__panel {
+    padding-bottom: 8px;
+  }
+}
