@@ -1,5 +1,11 @@
 # Портфолио — Кондратьева Елизавета
 
+**Сайт: https://lizerginnnn.github.io/portfolio/**
+
+Публикуется на GitHub Pages автоматически при пуше в `main` (`.github/workflows/deploy.yml`).
+Сайт собирается статикой (`output: "export"`) с префиксом `/portfolio` (`basePath` в `next.config.ts`),
+поэтому пути к файлам из `public/` в `src` оборачиваются в `withBasePath()`.
+
 Адаптивный сайт-портфолио на **Next.js 15 (App Router) + TypeScript + SCSS (БЭМ)**,
 свёрстанный по Figma-файлу `portfolio`: главная (фреймы 393 / 703 / 768 / 1280 / 1440 / 1920),
 страница кейса (393 / 768 / 1280 / 1440 / 1920) и ui-kit.
@@ -25,8 +31,7 @@ corepack enable
 ```bash
 yarn install      # установить зависимости
 yarn dev          # режим разработки → http://localhost:3000
-yarn build        # production-сборка
-yarn start        # запустить собранную версию
+yarn build        # статическая сборка в out/ (её и выкладывает GitHub Pages)
 yarn typecheck    # проверка типов TypeScript
 ```
 
@@ -143,7 +148,8 @@ import { Typography } from "@/components/ui";
 
 1. Создайте `src/constants/cases/smart.ts` по образцу `sellsaver.ts` и добавьте его в `CASES`
    в `src/constants/cases/index.ts` с ключом, равным `id` проекта (`smart`).
-2. Положите картинки в `public/images/cases/smart/`.
+2. Положите картинки в `public/images/cases/smart/` — в WebP шириной до 2400px: GitHub Pages отдаёт их
+   как есть, без сжатия.
 3. В `src/constants/projects.ts` поменяйте у проекта `href` на `ROUTES.project("smart")`.
 
 Кнопка «следующий проект» внизу кейса берёт следующий проект из `PROJECTS`.
@@ -162,4 +168,3 @@ import { Typography } from "@/components/ui";
 - Ссылки «Смотреть →» у проектов без кейса ведут на `#`.
 - Чипсы на картинке при наведении (Web / Mobile / Desktop) в макете есть только у SellSaver;
   для остальных проектов их можно добавить в поле `tags`.
-- Картинки из Figma тяжёлые (обложки до 15 МБ) — Next.js ужимает их при показе, но исходники лучше пережать.
