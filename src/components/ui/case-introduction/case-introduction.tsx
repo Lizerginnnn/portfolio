@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { CaseStudy } from "@/types";
+import { withBasePath } from "@/utils";
 import { Tag } from "../tag";
 import { Typography } from "../typography";
 import "./case-introduction.scss";
@@ -35,7 +36,7 @@ export function CaseIntroduction({ study }: { study: CaseStudy }) {
 
       <div className="case-intro__hero">
         <Image
-          src={study.hero.src}
+          src={withBasePath(study.hero.src)}
           alt={study.hero.alt}
           fill
           priority

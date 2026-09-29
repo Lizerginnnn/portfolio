@@ -43,10 +43,10 @@ export function Hero() {
           <div className="hero__photo-inner">
             {/* Кадрирование из Figma меняется по брейкпоинтам — значения в CSS-переменных (hero.scss) */}
             <CroppedImage
-              src="/images/profile.jpg"
+              src="/images/profile.webp"
               alt={PERSON.fullName}
-              width={4284}
-              height={5712}
+              width={1800}
+              height={2400}
               priority
               sizes="(min-width: 1280px) 620px, 240px"
               crop={{ width: "var(--crop-w)", height: "var(--crop-h)", left: "var(--crop-x)", top: "var(--crop-y)" }}

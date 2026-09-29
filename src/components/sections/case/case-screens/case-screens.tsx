@@ -1,6 +1,6 @@
 import Image from "next/image";
 import type { CaseScreen } from "@/types";
-import { cn } from "@/utils";
+import { cn, withBasePath } from "@/utils";
 import { SectionHeading } from "@/components/ui";
 import "./case-screens.scss";
 
@@ -24,7 +24,7 @@ export function CaseScreens({ screens, ratio }: { screens: CaseScreen[]; ratio?:
             <div className="case-screens__frame">
               <div className={cn("case-screens__image", screen.inset && "case-screens__image--inset")}>
                 <Image
-                  src={screen.src}
+                  src={withBasePath(screen.src)}
                   alt={screen.alt}
                   fill
                   sizes="(min-width: 1920px) 870px, (min-width: 768px) 50vw, 100vw"

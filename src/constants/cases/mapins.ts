@@ -15,9 +15,9 @@ export const MAPINS_CASE: CaseStudy = {
     { label: "Клиент", value: "Стартап «Мапинс»" },
   ],
   hero: {
-    src: "/images/cases/mapins/hero.png",
-    width: 2838,
-    height: 1148,
+    src: "/images/cases/mapins/hero.webp",
+    width: 2400,
+    height: 971,
     alt: "Экраны редактора карт помещений Мапинс",
     position: "right center",
   },

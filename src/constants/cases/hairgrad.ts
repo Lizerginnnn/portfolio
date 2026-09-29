@@ -17,9 +17,9 @@ export const HAIRGRAD_CASE: CaseStudy = {
     { label: "Клиент", value: "HairGrad" },
   ],
   hero: {
-    src: "/images/cases/sellsaver/hero.png",
-    width: 4096,
-    height: 3072,
+    src: "/images/cases/sellsaver/hero.webp",
+    width: 2400,
+    height: 1800,
     alt: "Обложка проекта HairGrad",
   },
   headings: {

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { Crop } from "@/types";
+import { withBasePath } from "@/utils";
 
 type CroppedImageProps = {
   src: string;
@@ -15,10 +16,11 @@ type CroppedImageProps = {
 };
 
 /** Картинка, спозиционированная внутри рамки так же, как кроп заливки в Figma. */
-export function CroppedImage({ crop, className, ...props }: CroppedImageProps) {
+export function CroppedImage({ src, crop, className, ...props }: CroppedImageProps) {
   return (
     <Image
       {...props}
+      src={withBasePath(src)}
       aria-hidden={props.alt === "" ? true : undefined}
       className={className}
       style={{

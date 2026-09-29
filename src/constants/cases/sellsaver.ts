@@ -16,9 +16,9 @@ export const SELLSAVER_CASE: CaseStudy = {
     { label: "Клиент", value: "SellSaver" },
   ],
   hero: {
-    src: "/images/cases/sellsaver/hero.png",
-    width: 4096,
-    height: 3072,
+    src: "/images/cases/sellsaver/hero.webp",
+    width: 2400,
+    height: 1800,
     alt: "Интерфейс SellSaver на ноутбуке и смартфоне",
   },
   goal: {
@@ -87,21 +87,21 @@ export const SELLSAVER_CASE: CaseStudy = {
   ],
   screens: [
     {
-      src: "/images/cases/sellsaver/dashboard.png",
-      width: 2560,
-      height: 2726,
+      src: "/images/cases/sellsaver/dashboard.webp",
+      width: 2400,
+      height: 2556,
       alt: "Главный дашборд SellSaver",
       caption: "Главный дашборд — сводка по SKU и позициям",
     },
     {
-      src: "/images/cases/sellsaver/new-store.png",
-      width: 2880,
-      height: 1714,
+      src: "/images/cases/sellsaver/new-store.webp",
+      width: 2400,
+      height: 1428,
       alt: "Модальное окно создания магазина",
       caption: "Создание нового магазина",
     },
     {
-      src: "/images/cases/sellsaver/landing.png",
+      src: "/images/cases/sellsaver/landing.webp",
       width: 2140,
       height: 1698,
       alt: "Лендинг SellSaver",
@@ -109,7 +109,7 @@ export const SELLSAVER_CASE: CaseStudy = {
       inset: true,
     },
     {
-      src: "/images/cases/sellsaver/mobile.png",
+      src: "/images/cases/sellsaver/mobile.webp",
       width: 1618,
       height: 1022,
       alt: "Экраны мобильной версии SellSaver",

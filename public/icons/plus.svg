@@ -1,5 +1,1 @@
-<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="10.1562" height="10.3027" viewBox="0 0 10.1562 10.3027" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g id="Text">
-<path id="+" d="M0 5.79102L0 4.51172L10.1562 4.51172V5.79102L0 5.79102ZM4.44336 10.3027L4.44336 0L5.72266 0L5.72266 10.3027H4.44336Z" fill="#78ACC8"/>
-</g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="10.156" height="10.303" fill="none" overflow="visible" preserveAspectRatio="none" style="display:block"><path fill="#78ACC8" d="M0 5.791v-1.28h10.156v1.28zm4.443 4.512V0h1.28v10.303z"/></svg>

@@ -12,9 +12,9 @@ export const PROJECTS: Project[] = [
       "Спроектировала дашборды и 12+ пользовательских сценариев для платформы ценовой оптимизации. Лендинг дал 6,5% конверсию в регистрацию на старте.",
     tags: ["Web", "Mobile", "Desktop"],
     image: {
-      src: "/images/projects/sellsaver.png",
-      width: 4096,
-      height: 3072,
+      src: "/images/projects/sellsaver.webp",
+      width: 2400,
+      height: 1800,
       crop: { width: "114.27%", height: "166.07%", left: "-11.65%", top: "-25.7%" },
     },
     href: ROUTES.project("sellsaver"),
@@ -26,7 +26,7 @@ export const PROJECTS: Project[] = [
     shortTitle: "«Смарт»",
     description:
       "Спроектировала раздел для выпускников ведущего вуза России — 4 роли, трёхступенчатая модерация, витрина вакансий и личные кабинеты.",
-    image: { src: "/images/projects/smart-nda.png", width: 996, height: 376 },
+    image: { src: "/images/projects/smart-nda.webp", width: 996, height: 376 },
     href: ROUTES.project("smart"),
   },
   {
@@ -35,7 +35,7 @@ export const PROJECTS: Project[] = [
     title: "HairGrad",
     description:
       "Спроектировала и сдала в разработку интернет-магазин с полным UI-kitом из 40+ компонентов. Каталог, корзина, оформление заказа, личный кабинет.",
-    image: { src: "/images/projects/hairgrad.png", width: 996, height: 514 },
+    image: { src: "/images/projects/hairgrad.webp", width: 996, height: 514 },
     href: ROUTES.project("hairgrad"),
   },
   {
@@ -45,7 +45,7 @@ export const PROJECTS: Project[] = [
     badge: "500+ активных студентов",
     description:
       "Вывела в релиз образовательную платформу для вузов — личный кабинет студента, панель преподавателя и блоки обучения. 500+ студентов используют ежедневно.",
-    image: { src: "/images/projects/newdex.png", width: 3582, height: 2190 },
+    image: { src: "/images/projects/newdex.webp", width: 2400, height: 1467 },
     href: ROUTES.project("newdex"),
   },
   {

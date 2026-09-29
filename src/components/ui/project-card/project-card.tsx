@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Project } from "@/types";
-import { cn } from "@/utils";
+import { cn, withBasePath } from "@/utils";
 import { CroppedImage } from "../cropped-image";
 import { Typography } from "../typography";
 import "./project-card.scss";
@@ -32,7 +32,7 @@ export function ProjectCard({ project, className }: ProjectCardProps) {
               crop={image.crop}
             />
           ) : (
-            <Image src={image.src} alt={alt} fill sizes={IMAGE_SIZES} style={{ objectFit: "cover" }} />
+            <Image src={withBasePath(image.src)} alt={alt} fill sizes={IMAGE_SIZES} style={{ objectFit: "cover" }} />
           )}
           {tags && tags.length > 0 && (
             <ul className="project-card__tags" aria-label="Платформы">

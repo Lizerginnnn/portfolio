@@ -16,7 +16,7 @@ export function GraduationPhoto({ className }: { className?: string }) {
   return (
     <div className={cn("graduation-photo", className)}>
       <CroppedImage
-        src="/images/graduation-color.png"
+        src="/images/graduation-color.webp"
         alt="Елизавета с дипломом ИТМО на фоне реки"
         width={960}
         height={1280}

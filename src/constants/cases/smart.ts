@@ -13,7 +13,7 @@ export const SMART_CASE: CaseStudy = {
     { label: "Клиент", value: "–" },
   ],
   hero: {
-    src: "/images/cases/smart/hero.png",
+    src: "/images/cases/smart/hero.webp",
     width: 1040,
     height: 720,
     alt: "Проект под NDA",

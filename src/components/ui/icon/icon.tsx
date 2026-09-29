@@ -1,4 +1,4 @@
-import { cn } from "@/utils";
+import { cn, withBasePath } from "@/utils";
 
 /**
  * Иконки из ui-kit (frame «icon», 0:4763) и служебные иконки интерфейса.
@@ -46,5 +46,5 @@ type IconProps<N extends IconName> = {
 export function Icon<N extends IconName>({ name, tone, className }: IconProps<N>) {
   const src = ICONS[name][tone] as string;
   const { width, height } = SIZES[name];
-  return <img src={src} alt="" aria-hidden width={width} height={height} className={cn("icon", className)} />;
+  return <img src={withBasePath(src)} alt="" aria-hidden width={width} height={height} className={cn("icon", className)} />;
 }
