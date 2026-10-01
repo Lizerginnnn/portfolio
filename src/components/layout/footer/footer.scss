@@ -28,6 +28,12 @@
     }
   }
 
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
   &__title {
     font-family: var(--font-sans);
     font-weight: 700;

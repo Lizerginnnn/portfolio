@@ -21,9 +21,14 @@ export function Footer() {
             {FOOTER.text}
           </Typography>
         </div>
-        <Button href={CONTACTS.telegram.href} icon={<Icon name="telegram" tone="muted" />} external>
-          Написать
-        </Button>
+        <div className="site-footer__actions">
+          <Button href={CONTACTS.telegram.href} icon={<Icon name="telegram" tone="muted" />} external>
+            Написать
+          </Button>
+          <Button mode="2" href={CONTACTS.phone.href} icon={<Icon name="phone" tone="light" />}>
+            {CONTACTS.phone.label}
+          </Button>
+        </div>
       </div>
 
       <div className="site-footer__bottom">

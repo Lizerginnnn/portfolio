@@ -2,8 +2,7 @@ import type { CaseStudy } from "@/types";
 
 /**
  * Тексты — из макета «Case Page - HairGrad» (node 27:3865). Галереи экранов в макете нет.
- * Обложка в макете — та же картинка, что у SellSaver (похоже на заглушку), поэтому
- * ссылаемся на файл SellSaver, а не храним копию. Замените, когда будет своя обложка.
+ * Обложка — картинка из карточки проекта: в макете стояла заглушка от SellSaver.
  */
 export const HAIRGRAD_CASE: CaseStudy = {
   category: "Интернет-магазин с админ-панелью",
@@ -17,10 +16,12 @@ export const HAIRGRAD_CASE: CaseStudy = {
     { label: "Клиент", value: "HairGrad" },
   ],
   hero: {
-    src: "/images/cases/sellsaver/hero.webp",
-    width: 2400,
-    height: 1800,
-    alt: "Обложка проекта HairGrad",
+    src: "/images/projects/hairgrad.webp",
+    width: 996,
+    height: 514,
+    alt: "Экраны интернет-магазина HairGrad: популярные товары, система ухода и обучение",
+    // кадр уже картинки — оставляем левую часть с товарами и блоком «Система Hairgrad»
+    position: "left center",
   },
   headings: {
     approach: "Как я работала над проектом",

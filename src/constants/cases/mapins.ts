@@ -8,11 +8,11 @@ import type { CaseStudy } from "@/types";
 export const MAPINS_CASE: CaseStudy = {
   category: "Управление пространством и навигацией",
   title: "Мапинс",
-  lead: "Стартап и сервис управления пространством: редактор карт, многоэтажность, маршруты и изменения в реальном времени.",
+  lead: "Стартап и сервис управления пространством: редактор карт, каталог объектов, совместная работа и оповещения, привязанные к месту на карте.",
   details: [
     { label: "Роль", value: "UX/UI-дизайнер" },
     { label: "Сроки", value: "Ноя 2022 — Окт 2023" },
-    { label: "Тип", value: "B2b Saas, PropTech, Mapping" },
+    { label: "Тип", value: "B2b SaaS, PropTech, Mapping" },
     { label: "Клиент", value: "Стартап «Мапинс»" },
   ],
   hero: {
