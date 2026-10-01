@@ -9,7 +9,7 @@ export const NEWDEX_CASE: CaseStudy = {
     { label: "Роль", value: "UX/UI-дизайнер" },
     { label: "Сроки", value: "Март 2025 – Апр 2025" },
     { label: "Инструменты", value: "Figma" },
-    { label: "Тип", value: "EdTech, online education" },
+    { label: "Тип", value: "EdTech, LMS, Online education" },
     { label: "Клиент", value: "–" },
   ],
   hero: {

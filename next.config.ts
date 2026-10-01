@@ -8,7 +8,12 @@ const nextConfig: NextConfig = {
   // Статическая сборка в out/ для GitHub Pages (сервера нет).
   output: "export",
   basePath,
+  // GitHub Pages открывает главную как /portfolio/ (со слэшем). Без этого ссылки вида
+  // /portfolio#about не совпадают с текущим URL, и якорные кнопки хедера перезагружают страницу.
+  trailingSlash: true,
   env: { NEXT_PUBLIC_BASE_PATH: basePath },
+  // Разрешает открывать dev-сервер с телефона в той же Wi‑Fi сети (http://<IP компьютера>:3000).
+  allowedDevOrigins: ["192.168.*.*", "10.*.*.*", "172.*.*.*"],
   images: {
     // Оптимизатор next/image работает только на сервере — отдаём файлы как есть.
     unoptimized: true,

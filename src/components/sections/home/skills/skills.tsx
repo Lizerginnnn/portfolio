@@ -1,10 +1,11 @@
 import { SKILLS } from "@/constants";
+import { SECTION_IDS } from "@/utils";
 import { SectionHeading, SkillGroup, SkillList, Typography } from "@/components/ui";
 import "./skills.scss";
 
 export function Skills() {
   return (
-    <section id="skills" className="skills" aria-labelledby="skills-title">
+    <section id={SECTION_IDS.skills} className="skills" aria-labelledby="skills-title">
       <SectionHeading id="skills-title" label="Навыки" title="Что умею" className="skills__heading" />
 
       {/* < lg: аккордеон */}

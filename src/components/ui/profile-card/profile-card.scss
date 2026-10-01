@@ -97,24 +97,17 @@
 
     &--email {
       min-width: 190px;
-
-      @include mq(lg) {
-        flex: 0 0 190px;
-      }
-    }
-
-    &--telegram,
-    &--behance {
-      min-width: 112px;
     }
 
     &--telegram {
+      min-width: 112px;
+
       @include mq(lg) {
         min-width: 110px;
       }
     }
 
-    // все четыре кнопки в один ряд, даже когда полоса прокрутки съедает ~15px ширины
+    // все кнопки в один ряд, даже когда полоса прокрутки съедает ~15px ширины
     @include mq(xl) {
       &#{&} {
         min-width: max-content;

@@ -1,5 +1,6 @@
 import { EDUCATION, EXPERIENCE, QUALITIES } from "@/constants";
 import { GraduationPhoto, SectionHeading, Typography } from "@/components/ui";
+import { SECTION_IDS } from "@/utils";
 import "./career.scss";
 
 // На 1920 заголовки колонок крупнее (h2), на остальных — h3
@@ -8,7 +9,7 @@ const HEADING_SIZE = { base: "m", xxl: "l" } as const;
 /** Опыт работы, образование и личные качества (фрейм «Background» в Figma). */
 export function Career() {
   return (
-    <section id="experience" className="career" aria-label="Опыт и образование">
+    <section id={SECTION_IDS.experience} className="career" aria-label="Опыт и образование">
       <div className="career__column career__column--experience">
         <SectionHeading label="опыт работы" title="3+ года в дизайне" size={HEADING_SIZE} />
         <ol className="career__timeline">

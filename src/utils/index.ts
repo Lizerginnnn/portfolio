@@ -1,5 +1,6 @@
 export * from "./cn";
-export * from "./links";
+export * from "./routes";
+export * from "./contacts";
 export * from "./format";
 export * from "./projects";
 export * from "./responsive";

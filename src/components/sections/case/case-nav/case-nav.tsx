@@ -1,4 +1,4 @@
-import { ROUTES } from "@/constants";
+import { ROUTES } from "@/utils";
 import type { Project } from "@/types";
 import { Button } from "@/components/ui";
 import "./case-nav.scss";

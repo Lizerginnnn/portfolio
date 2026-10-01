@@ -1,6 +1,6 @@
 import { FACTS, PERSON } from "@/constants";
 import type { Fact } from "@/types";
-import { cn } from "@/utils";
+import { SECTION_IDS, cn } from "@/utils";
 import { CroppedImage, ProfileCard, Typography } from "@/components/ui";
 import "./hero.scss";
 
@@ -24,7 +24,7 @@ export function Hero() {
   const [first, second, third] = FACTS;
 
   return (
-    <section id="about" className="hero" aria-label="Обо мне">
+    <section id={SECTION_IDS.about} className="hero" aria-label="Обо мне">
       {/* h1 из Figma; до lg размер плавающий, чтобы имя помещалось рядом с фото (hero.scss) */}
       <Typography as="h1" variant={{ base: "h2", lg: "h1" }} color="grey-8" className="hero__name">
         {PERSON.fullName}

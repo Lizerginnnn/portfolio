@@ -12,7 +12,7 @@ export const SELLSAVER_CASE: CaseStudy = {
     { label: "Роль", value: "UX/UI-дизайнер" },
     { label: "Сроки", value: "Дек 2025 — Авг 2026" },
     { label: "Инструменты", value: "Figma, Яндекс.Метрика" },
-    { label: "Тип", value: "B2B SaaS, e-commerce" },
+    { label: "Тип", value: "B2b SaaS, E-commerce, Business Intelligence" },
     { label: "Клиент", value: "SellSaver" },
   ],
   hero: {

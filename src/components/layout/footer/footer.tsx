@@ -1,5 +1,5 @@
-import { CONTACTS, FOOTER } from "@/constants";
-import { EXTERNAL_LINK_PROPS, isExternalUrl } from "@/utils";
+import { FOOTER } from "@/constants";
+import { CONTACTS, EXTERNAL_LINK_PROPS, SECTION_IDS, isExternalUrl } from "@/utils";
 import { Button, Icon, Typography } from "@/components/ui";
 import "./footer.scss";
 
@@ -8,7 +8,7 @@ const LINKS = [CONTACTS.telegram, CONTACTS.phone, CONTACTS.email, CONTACTS.behan
 /** ui-kit → footer (0:5661): Default (desktop) / mobile. */
 export function Footer() {
   return (
-    <footer id="contacts" className="site-footer">
+    <footer id={SECTION_IDS.contacts} className="site-footer">
       <div className="site-footer__contact">
         <div className="site-footer__content">
           {/* 48 → 64px Bold — крупнее h2 и отдельным стилем в Figma не оформлен */}

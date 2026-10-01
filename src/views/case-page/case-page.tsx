@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ROUTES } from "@/constants";
+import { ROUTES } from "@/utils";
 import type { CaseStudy, Project } from "@/types";
 import { Footer, Header } from "@/components/layout";
 import { CaseIntroduction, Typography } from "@/components/ui";

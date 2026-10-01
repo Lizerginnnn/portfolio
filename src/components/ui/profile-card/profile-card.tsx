@@ -1,5 +1,5 @@
-import { CONTACTS, PERSON } from "@/constants";
-import { cn } from "@/utils";
+import { PERSON } from "@/constants";
+import { CONTACTS, cn } from "@/utils";
 import { Button } from "../button";
 import { Icon } from "../icon";
 import { Tag } from "../tag";
@@ -52,16 +52,6 @@ export function ProfileCard({ className }: { className?: string }) {
           external
         >
           {CONTACTS.telegram.label}
-        </Button>
-        <Button
-          mode="2"
-          href={CONTACTS.behance.href}
-          icon={<Icon name="behance" tone="light" />}
-          hoverIcon={<Icon name="behance" tone="light-hover" />}
-          className="profile-card__contact profile-card__contact--behance"
-          external
-        >
-          {CONTACTS.behance.label}
         </Button>
       </div>
     </div>

@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { CONTACTS, NAV_DESKTOP, NAV_MOBILE, PERSON, ROUTES } from "@/constants";
-import { cn } from "@/utils";
+import { NAV_DESKTOP, NAV_MOBILE, PERSON } from "@/constants";
+import { CONTACTS, ROUTES, cn } from "@/utils";
 import { Button, Icon, Typography } from "@/components/ui";
 import "./header.scss";
 

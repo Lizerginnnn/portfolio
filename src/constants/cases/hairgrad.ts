@@ -13,7 +13,7 @@ export const HAIRGRAD_CASE: CaseStudy = {
     { label: "Роль", value: "UX/UI-дизайнер" },
     { label: "Сроки", value: "Дек 2023 — Май 2024" },
     { label: "Инструменты", value: "Figma" },
-    { label: "Тип", value: "B2C, e-commerce" },
+    { label: "Тип", value: "B2C, E-commerce, Retail" },
     { label: "Клиент", value: "HairGrad" },
   ],
   hero: {

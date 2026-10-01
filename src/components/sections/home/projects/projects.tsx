@@ -1,11 +1,11 @@
 import { PROJECTS } from "@/constants";
-import { cn } from "@/utils";
+import { SECTION_IDS, cn } from "@/utils";
 import { ProjectCard, SectionHeading } from "@/components/ui";
 import "./projects.scss";
 
 export function Projects() {
   return (
-    <section id="projects" className="projects" aria-labelledby="projects-title">
+    <section id={SECTION_IDS.projects} className="projects" aria-labelledby="projects-title">
       <SectionHeading id="projects-title" label="опыт работы" title="Проекты" className="projects__heading" />
 
       <div className="projects__grid">

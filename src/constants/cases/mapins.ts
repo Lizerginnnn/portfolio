@@ -12,6 +12,7 @@ export const MAPINS_CASE: CaseStudy = {
   details: [
     { label: "Роль", value: "UX/UI-дизайнер" },
     { label: "Сроки", value: "Ноя 2022 — Окт 2023" },
+    { label: "Тип", value: "B2b Saas, PropTech, Mapping" },
     { label: "Клиент", value: "Стартап «Мапинс»" },
   ],
   hero: {

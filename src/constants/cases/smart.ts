@@ -9,7 +9,7 @@ export const SMART_CASE: CaseStudy = {
     { label: "Роль", value: "UX/UI-дизайнер" },
     { label: "Сроки", value: "Окт 2024 — Авг 2025" },
     { label: "Инструменты", value: "Figma" },
-    { label: "Тип", value: "University Information System" },
+    { label: "Тип", value: "EdTech, Corporate IS, B2b" },
     { label: "Клиент", value: "–" },
   ],
   hero: {
