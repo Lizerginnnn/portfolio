@@ -3,7 +3,15 @@ import { ROUTES } from "@/utils";
 import type { CaseStudy, Project } from "@/types";
 import { Footer, Header } from "@/components/layout";
 import { CaseIntroduction, Typography } from "@/components/ui";
-import { CaseContext, CaseNav, CaseScreens, CaseTasks } from "@/components/sections/case";
+import {
+  CaseArchitecture,
+  CaseContext,
+  CaseDecisions,
+  CaseMetrics,
+  CaseNav,
+  CaseScreens,
+  CaseTasks,
+} from "@/components/sections/case";
 import "./case-page.scss";
 
 type CasePageProps = {
@@ -24,10 +32,16 @@ export function CasePage({ study, next }: CasePageProps) {
             </Typography>
             <CaseIntroduction study={study} />
           </div>
+          {study.metrics && <CaseMetrics metrics={study.metrics} />}
           <CaseContext study={study} />
-          <CaseTasks study={study} />
+          {study.architecture && <CaseArchitecture architecture={study.architecture} />}
+          {study.decisions ? (
+            <CaseDecisions decisions={study.decisions} title={study.headings?.tasks} />
+          ) : (
+            <CaseTasks study={study} />
+          )}
         </div>
-        {study.screens && study.screens.length > 0 && <CaseScreens screens={study.screens} ratio={study.screensRatio} />}
+        {study.screens && study.screens.length > 0 && <CaseScreens screens={study.screens} ratio={study.screensRatio} title={study.headings?.screens} />}
         <CaseNav next={next} />
       </main>
       <Footer />

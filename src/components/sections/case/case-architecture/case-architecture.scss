@@ -1,0 +1,186 @@
+@use "abstracts" as *;
+
+.case-architecture {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+
+  &__intro {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__lead {
+    max-width: 860px;
+  }
+
+  // общая голубая подложка, как у вводного блока; внутри — два уровня
+  &__map {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 16px;
+    border-radius: 24px;
+    background: var(--blue-50);
+
+    @include mq(lg) {
+      gap: 28px;
+      padding: 24px;
+      border-radius: 32px;
+    }
+  }
+
+  &__level {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  // рабочий цикл: столбиком со стрелками вниз → с lg в ряд: карточка, стрелка, карточка, стрелка, карточка
+  &__flow {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+
+    @include mq(lg) {
+      flex-direction: row;
+      gap: 12px;
+    }
+  }
+
+  &__step {
+    display: flex;
+    flex: 1 1 0;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 0;
+    padding: 20px;
+    border-radius: 16px;
+    background: var(--grey-0);
+    box-shadow: var(--shadow-11);
+
+    @include mq(lg) {
+      padding: 24px;
+    }
+  }
+
+  &__step-head {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--grey-2);
+  }
+
+  &__step-body {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  &__arrow {
+    align-self: center;
+    flex: none;
+    font-family: var(--font-sans);
+    font-size: 24px;
+    line-height: 1;
+    color: var(--blue-400);
+    transform: rotate(90deg);
+
+    @include mq(lg) {
+      transform: none;
+    }
+  }
+
+  &__items {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  &__item {
+    display: flex;
+    gap: 8px;
+
+    &::before {
+      content: "";
+      flex: none;
+      width: 4px;
+      height: 4px;
+      margin-top: 0.6em;
+      border-radius: 50%;
+      background: var(--blue-300);
+    }
+  }
+
+  // вложенный экран (например, «Страница магазина») — с голубой линией слева
+  &__group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding-left: 12px;
+    border-left: 2px solid var(--blue-150);
+  }
+
+  // ссылки на карточки решений ниже по странице
+  &__links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    padding-top: 12px;
+    border-top: 1px solid var(--grey-2);
+  }
+
+  &__link {
+    padding: 3px 10px;
+    border: 0.5px solid var(--blue-300);
+    border-radius: 15px;
+    background: var(--blue-100);
+    @include transition(background-color, border-color);
+
+    &:hover,
+    &:focus-visible {
+      border-color: var(--blue-500);
+      background: var(--blue-150);
+    }
+  }
+
+  // исходный эскиз структуры — по центру, не шире 900px
+  &__sketch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  &__sketch-image {
+    display: block;
+    width: 100%;
+    max-width: 900px;
+    height: auto;
+    border-radius: 16px;
+    box-shadow: var(--shadow-11);
+  }
+
+  // сервисные разделы — компактные плашки: название и короткая подпись
+  &__support {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  &__support-item {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px 8px;
+    padding: 10px 16px;
+    border-radius: 12px;
+    background: var(--grey-0);
+    box-shadow: inset 0 0 0 1px var(--grey-2);
+  }
+}

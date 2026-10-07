@@ -3,7 +3,7 @@ import { CONTACTS, EXTERNAL_LINK_PROPS, SECTION_IDS, isExternalUrl } from "@/uti
 import { Button, Icon, Typography } from "@/components/ui";
 import "./footer.scss";
 
-const LINKS = [CONTACTS.telegram, CONTACTS.phone, CONTACTS.email, CONTACTS.behance];
+const LINKS = [CONTACTS.telegram, CONTACTS.phone, CONTACTS.email];
 
 /** ui-kit → footer (0:5661): Default (desktop) / mobile. */
 export function Footer() {

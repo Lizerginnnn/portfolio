@@ -25,9 +25,10 @@ export const PROJECTS: Project[] = [
     title: "Компания «Смарт»",
     shortTitle: "«Смарт»",
     description:
-      "Спроектировала раздел для выпускников ведущего вуза России — 4 роли, трёхступенчатая модерация, витрина вакансий и личные кабинеты.",
+      "Спроектировала раздел для выпускников ведущего вуза России — 4 роли, трёхступенчатая модерация, витрина вакансий и личные кабинеты. Передано в разработку и запущено.",
     tags: ["EdTech", "Corporate IS", "B2b"],
-    image: { src: "/images/projects/smart-nda.webp", width: 996, height: 376 },
+    badge: "Запущено",
+    image: { src: "/images/projects/smart-cover.svg", width: 1000, height: 620 },
     href: ROUTES.project("smart"),
   },
   {

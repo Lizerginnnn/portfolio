@@ -1,0 +1,31 @@
+@use "abstracts" as *;
+
+.case-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+
+  @include mq(lg) {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  &__item {
+    display: flex;
+    // в разметке подпись (dt) идёт первой, как требует <dl>; визуально цифра — сверху
+    flex-direction: column-reverse;
+    justify-content: flex-end;
+    gap: 4px;
+    padding: 20px;
+    border: 0.5px solid var(--grey-2);
+    border-radius: 16px;
+    background: var(--grey-0);
+    box-shadow: var(--shadow-11);
+
+    @include mq(md) {
+      gap: 8px;
+      padding: 24px 32px;
+      border-width: 1px;
+    }
+  }
+}
