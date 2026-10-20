@@ -1,0 +1,59 @@
+@use "abstracts" as *;
+
+.case-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+
+  // картинки разной высоты — колонками, без пустот под короткими кадрами
+  &__columns {
+    columns: 1;
+    column-gap: 24px;
+
+    @include mq(md) {
+      columns: 2;
+    }
+  }
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 0 0 32px;
+    break-inside: avoid;
+  }
+
+  &__frame {
+    display: block;
+    border-radius: 12px;
+    box-shadow: var(--shadow-11);
+    overflow: hidden;
+    @include transition(box-shadow);
+
+    &:hover,
+    &:focus-visible {
+      box-shadow: var(--shadow-card-hover), var(--shadow-11);
+    }
+
+    // узкий экран телефона — по центру голубой подложки, в одном масштабе с остальными мобильными кадрами
+    &--mobile {
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+      background: var(--blue-50);
+      box-shadow: none;
+    }
+  }
+
+  &__image {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  &__frame--mobile &__image {
+    width: min(100%, var(--mobile-width, 280px));
+    border-radius: 12px;
+    box-shadow: var(--shadow-11);
+  }
+}

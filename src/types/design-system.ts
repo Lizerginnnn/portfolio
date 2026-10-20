@@ -32,6 +32,7 @@ export type ColorToken =
   | "blue-500"
   | "blue-600"
   | "blue-700"
+  | "blue-800"
   | "blue-900"
   | "blue-mist";
 

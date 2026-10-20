@@ -9,10 +9,6 @@ export type CaseImage = {
 
 export type CaseScreen = CaseImage & {
   caption: string;
-  /** Кадр на всю ширину галереи в своих пропорциях — для широких схем и флоу. */
-  wide?: boolean;
-  /** Картинка уже самого кадра — лежит по центру на тёмной подложке (как в макете). */
-  inset?: boolean;
 };
 
 /**
@@ -77,6 +73,19 @@ export type CaseDecision = {
   layout?: "compare" | "steps";
   /** Схема процесса — показывается над макетами или вместо них. */
   diagram?: CaseDiagram;
+  /** Отдельная плашка после анимации и схемы — например, «Для разработки»: что передано команде вместе с макетами. */
+  handoff?: {
+    label: string;
+    text: string;
+    items?: string[];
+    /**
+     * Листы гайда — высокие картинки: показываются в окне фиксированной высоты с прокруткой,
+     * колонки по ширине исходных фреймов (один масштаб), под каждым — ссылка на картинку целиком.
+     */
+    sheets?: (CaseImage & { caption: string; frameWidth: number })[];
+  };
+  /** Анимированный макет вместо скриншота — показывается над остальными макетами, на всю ширину. */
+  demo?: { kind: "calendar"; caption?: string };
   /** Макеты; у проектов под NDA их может не быть — тогда решение держится на тексте и схеме. */
   media?: CaseFigure[];
 };
@@ -119,15 +128,21 @@ export type CaseStudy = {
   details: { label: string; value: string }[];
   hero: CaseImage;
   /** Заголовки секций, если отличаются от стандартных («Как работала над проектом», «Конкретные задачи»). */
-  headings?: { approach?: string; tasks?: string; screens?: string };
+  headings?: { approach?: string; tasks?: string };
   goal: {
-    /** Первый абзац: строка — серым, RichText — с выделениями. */
+    /** Подзаголовок цели — text 2b тёмным. Выделения RichText (accent, bold) здесь не показываются: абзац одним стилем. */
     overview: string | RichText;
+    /** Текст под подзаголовком — text 2 серым, тоже без выделений. */
     context: RichText;
   };
   steps: { title: string; description: string }[];
   /** Блок «Объём реализации» под шагами подхода. */
-  scope?: { title: string; items: string[] };
+  scope?: {
+    title: string;
+    items: string[];
+    /** goal — в левой колонке под целью проекта; по умолчанию — справа под шагами подхода. */
+    placement?: "goal" | "approach";
+  };
   /** Ключевые цифры проекта — полоса под вводным блоком. */
   metrics?: { value: string; label: string }[];
   /** Карта разделов продукта. */
@@ -135,8 +150,6 @@ export type CaseStudy = {
   /** Решения с аргументацией и макетами «было / стало»; если заданы — показываются вместо tasks. */
   decisions?: CaseDecision[];
   tasks?: { title: string; description: string }[];
-  /** Галерея «Экраны и прототипы»; у проектов под NDA её нет. */
+  /** Остальные экраны проекта — попадают во вкладку «Макеты» после кадров решений; у проектов под NDA их нет. */
   screens?: CaseScreen[];
-  /** Пропорция кадров галереи, если отличается от стандартной 651 / 451.875 (например, "652 / 360"). */
-  screensRatio?: string;
 };

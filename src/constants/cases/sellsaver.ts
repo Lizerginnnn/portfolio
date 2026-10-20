@@ -23,7 +23,6 @@ export const SELLSAVER_CASE: CaseStudy = {
   },
   headings: {
     tasks: "Что выяснила и как решила",
-    screens: "Другие экраны",
   },
   goal: {
     overview:
@@ -306,7 +305,6 @@ export const SELLSAVER_CASE: CaseStudy = {
       height: 2280,
       alt: "Сценарий настройки диапазона дат для графика: выбор начала и конца периода в календаре",
       caption: "Настройка произвольного диапазона дат для графика",
-      wide: true,
     },
     {
       src: "/images/cases/sellsaver/landing.webp",
@@ -314,7 +312,6 @@ export const SELLSAVER_CASE: CaseStudy = {
       height: 1698,
       alt: "Лендинг SellSaver",
       caption: "Лендинг-страница",
-      inset: true,
     },
     {
       src: "/images/cases/sellsaver/mobile.webp",
@@ -322,7 +319,6 @@ export const SELLSAVER_CASE: CaseStudy = {
       height: 1022,
       alt: "Экраны мобильной версии SellSaver",
       caption: "Мобильная версия — уведомления и быстрый ответ",
-      inset: true,
     },
   ],
 };

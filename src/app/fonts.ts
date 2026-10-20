@@ -4,7 +4,8 @@ import { Inter } from "next/font/google";
 
 const inter = Inter({
   subsets: ["latin", "cyrillic"],
-  weight: ["400", "500"],
+  // 600 — Semi Bold из макетов NewDex (анимированный календарь в кейсе)
+  weight: ["400", "500", "600"],
   variable: "--font-inter-family",
   display: "swap",
 });

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ROUTES } from "@/utils";
+import { collectCaseGallery, ROUTES } from "@/utils";
 import type { CaseStudy, Project } from "@/types";
 import { Footer, Header } from "@/components/layout";
 import { CaseIntroduction, Typography } from "@/components/ui";
@@ -7,10 +7,12 @@ import {
   CaseArchitecture,
   CaseContext,
   CaseDecisions,
+  CaseGallery,
   CaseMetrics,
   CaseNav,
-  CaseScreens,
+  CaseTabs,
   CaseTasks,
+  type CaseTab,
 } from "@/components/sections/case";
 import "./case-page.scss";
 
@@ -19,8 +21,33 @@ type CasePageProps = {
   next?: Project;
 };
 
-/** Шаблон страницы кейса — одинаковый для всех проектов, контент из constants/cases. */
+/**
+ * Шаблон страницы кейса — одинаковый для всех проектов, контент из constants/cases.
+ * Под вводным блоком — табы: «Ключевые решения» первыми, «Описание» (цель, подход, структура) и «Макеты» (все картинки проекта).
+ */
 export function CasePage({ study, next }: CasePageProps) {
+  const gallery = collectCaseGallery(study);
+
+  const tabs: CaseTab[] = [
+    {
+      id: "decisions",
+      label: "Ключевые решения",
+      content: study.decisions ? <CaseDecisions decisions={study.decisions} title={study.headings?.tasks} /> : <CaseTasks study={study} />,
+    },
+    {
+      id: "description",
+      label: "Описание",
+      content: (
+        <>
+          <CaseContext study={study} />
+          {study.architecture && <CaseArchitecture architecture={study.architecture} />}
+        </>
+      ),
+    },
+  ];
+  // у проектов под NDA картинок может не быть — тогда вкладки «Макеты» нет
+  if (gallery.length > 0) tabs.push({ id: "mockups", label: "Макеты", content: <CaseGallery items={gallery} /> });
+
   return (
     <div className="case-page">
       <Header />
@@ -33,15 +60,8 @@ export function CasePage({ study, next }: CasePageProps) {
             <CaseIntroduction study={study} />
           </div>
           {study.metrics && <CaseMetrics metrics={study.metrics} />}
-          <CaseContext study={study} />
-          {study.architecture && <CaseArchitecture architecture={study.architecture} />}
-          {study.decisions ? (
-            <CaseDecisions decisions={study.decisions} title={study.headings?.tasks} />
-          ) : (
-            <CaseTasks study={study} />
-          )}
+          <CaseTabs tabs={tabs} />
         </div>
-        {study.screens && study.screens.length > 0 && <CaseScreens screens={study.screens} ratio={study.screensRatio} title={study.headings?.screens} />}
         <CaseNav next={next} />
       </main>
       <Footer />

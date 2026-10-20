@@ -1,0 +1,57 @@
+@use "abstracts" as *;
+
+// Tabs из ui-kit (Figma portfolio, 199:2466): подложка blue/50, активный таб — белый, t3b blue/800; остальные — t3 blue/600
+.case-tabs {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+
+  &__list {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    width: fit-content;
+    max-width: 100%;
+    padding: 6px 8px;
+    border-radius: 13px;
+    background: var(--blue-50);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  &__tab {
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    // высота активного таба (19.5 + 4 + 4) — чтобы ряд не прыгал при переключении
+    min-height: 27.5px;
+    padding: 4px 12px;
+    border: 0;
+    border-radius: 3px;
+    background: transparent;
+    white-space: nowrap;
+    cursor: pointer;
+    @include transition(background-color);
+
+    &:hover:not(&--active) {
+      background: var(--blue-100);
+    }
+
+    &--active {
+      border-radius: 9px;
+      background: var(--grey-0);
+      cursor: default;
+    }
+  }
+
+  &__panel {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+}

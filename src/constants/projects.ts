@@ -32,16 +32,6 @@ export const PROJECTS: Project[] = [
     href: ROUTES.project("smart"),
   },
   {
-    id: "hairgrad",
-    kicker: "Интернет-магазин с админ. панелью",
-    title: "HairGrad",
-    description:
-      "Спроектировала и сдала в разработку интернет-магазин с UI-kitом из 48 компонентов и 250+ вариантов. Каталог, корзина, оформление заказа, личный кабинет.",
-    tags: ["B2C", "E-commerce", "Retail"],
-    image: { src: "/images/projects/hairgrad.webp", width: 996, height: 514 },
-    href: ROUTES.project("hairgrad"),
-  },
-  {
     id: "newdex",
     kicker: "Образовательная платформа",
     title: "Newdex",
@@ -59,6 +49,17 @@ export const PROJECTS: Project[] = [
     description:
       "Единолично отвечала за весь UX/UI продукта в течение года — от глубинных интервью до релиза: редактор карт, дизайн-система и лендинг, ставший основным источником лидов.",
     tags: ["B2b SaaS", "PropTech", "Mapping"],
+    badge: "Единственный дизайнер",
+    image: { src: "/images/projects/mapins-cover.svg", width: 1000, height: 620 },
     href: ROUTES.project("mapins"),
+  },
+  {
+    id: "hairgrad",
+    kicker: "Интернет-магазин с админ. панелью",
+    title: "HairGrad",
+    description:
+      "Спроектировала и сдала в разработку интернет-магазин с UI-kitом из 48 компонентов и 250+ вариантов. Каталог, корзина, оформление заказа, личный кабинет.",
+    tags: ["B2C", "E-commerce", "Retail"],
+    href: ROUTES.project("hairgrad"),
   },
 ];

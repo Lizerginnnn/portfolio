@@ -3,6 +3,7 @@ import Image from "next/image";
 import type { CaseDecision, CaseDiagram, CaseDiagramStep, CaseFigure } from "@/types";
 import { cn, padNumber, withBasePath } from "@/utils";
 import { SectionHeading, Tag, Typography } from "@/components/ui";
+import { CaseCalendarDemo } from "../case-calendar-demo";
 import "./case-decisions.scss";
 
 const FIGURE_LABEL: Record<NonNullable<CaseFigure["label"]>, string> = {
@@ -282,6 +283,75 @@ export function CaseDecisions({ decisions, title }: { decisions: CaseDecision[];
             )}
 
             {decision.diagram && <DecisionDiagram diagram={decision.diagram} />}
+            {decision.demo && (
+              <figure className="case-decision__figure case-decision__demo">
+                <div className="case-decision__frame">
+                  {decision.demo.kind === "calendar" && <CaseCalendarDemo />}
+                </div>
+                {decision.demo.caption && (
+                  <Typography as="figcaption" variant="t3" color="grey-5" className="case-decision__caption">
+                    {decision.demo.caption}
+                  </Typography>
+                )}
+              </figure>
+            )}
+            {/* «Для разработки» — после макетов: сначала как работает, потом что ушло команде */}
+            {decision.handoff && (
+              <div className="case-decision__handoff">
+                <Typography as="h4" variant="tag" color="blue-700">
+                  {decision.handoff.label}
+                </Typography>
+                <Typography variant={{ base: "t3", md: "t2" }} color="grey-8">
+                  {decision.handoff.text}
+                </Typography>
+                {decision.handoff.items && (
+                  <ul className="case-decision__handoff-items">
+                    {decision.handoff.items.map((item) => (
+                      <Typography as="li" key={item} variant="t3" color="grey-6" className="case-decision__handoff-item">
+                        {item}
+                      </Typography>
+                    ))}
+                  </ul>
+                )}
+                {decision.handoff.sheets && (
+                  <div
+                    className="case-decision__sheets"
+                    style={{ gridTemplateColumns: decision.handoff.sheets.map((s) => `${s.frameWidth}fr`).join(" ") }}
+                  >
+                    {decision.handoff.sheets.map((sheet) => (
+                      <figure key={sheet.src} className="case-decision__sheet">
+                        <div className="case-decision__sheet-frame" tabIndex={0} aria-label={`${sheet.caption} — прокрутите, чтобы посмотреть целиком`}>
+                          <Image
+                            src={withBasePath(sheet.src)}
+                            alt={sheet.alt}
+                            width={sheet.width}
+                            height={sheet.height}
+                            sizes="(min-width: 1280px) 50vw, 100vw"
+                            className="case-decision__sheet-image"
+                          />
+                        </div>
+                        <figcaption className="case-decision__sheet-caption">
+                          <Typography as="span" variant="t3" color="grey-5">
+                            {sheet.caption}
+                          </Typography>
+                          <Typography
+                            as="a"
+                            href={withBasePath(sheet.src)}
+                            target="_blank"
+                            rel="noopener"
+                            variant="t3"
+                            color="blue-700"
+                          >
+                            Открыть целиком ↗
+                          </Typography>
+                        </figcaption>
+                      </figure>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+
             {decision.media && decision.media.length > 0 && <DecisionMedia decision={decision} media={decision.media} />}
           </li>
         ))}

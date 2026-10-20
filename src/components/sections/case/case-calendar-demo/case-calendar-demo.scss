@@ -1,0 +1,948 @@
+@use "sass:list";
+
+// Холст — страница макета 1920 × 1180 px (без футера), свёрстанная в настоящих пикселях макета
+// и целиком уменьшенная под ширину блока через scale. Так шрифты и рамки сжимаются пропорционально:
+// если считать размеры в cqw, на телефоне текст выходит меньше минимального размера шрифта
+// браузера и раздувается, а рамки остаются по 1 px и кажутся жирными.
+// Значения — из Figma: «ЛК студента_Календарь_Целиком» (919:35200), event-component (919:36024),
+// date-component (919:35772), панель дня (919:35111). Цикл анимации — $duration.
+$canvas-w: 1920px;
+$canvas-h: 1180px;
+
+@function u($px) {
+  @return $px * 1px;
+}
+
+$duration: 12s;
+
+// токены макета
+$dark: #343434; // secondary/dark
+$base: #a6aebf; // secondary/base
+$light: #f5f7f9; // secondary/light
+$light-blue: #e1eaff; // secondary/light-blue
+$accent: #5b81e2; // accent/primary
+$tertiary: #71727a; // colors/typography/tertiary
+$deadline-bg: rgba(255, 103, 103, 0.45); // calendar/deadline 45%
+
+$courses: (
+  "ultramarine": (#275ce1, rgba(39, 92, 225, 0.15), rgba(39, 92, 225, 0.3)),
+  "lime": (#87cf21, rgba(135, 207, 33, 0.15), rgba(135, 207, 33, 0.3)),
+  "yellow": (#ffdd32, rgba(255, 221, 50, 0.15), rgba(255, 221, 50, 0.3)),
+  "raspberry": (#ff4b9c, rgba(255, 75, 156, 0.15), rgba(225, 39, 123, 0.35)),
+);
+
+// в Figma у текста включён text-box-trim по высоте заглавных — так и считаются отступы макета
+@mixin trim {
+  text-box: trim-both cap alphabetic;
+}
+
+.cal-demo {
+  container-type: inline-size;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1920 / 1180;
+  border-radius: 8px;
+  box-shadow: var(--shadow-11);
+  overflow: hidden;
+
+  &__canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: $canvas-w;
+    height: $canvas-h;
+    // масштаб считает CalendarFit по реальной ширине блока; до гидрации — запасной вариант на CSS:
+    // ширина блока / 1920 px через atan2 (CSS не делит длину на длину напрямую)
+    scale: var(--cal-scale, tan(atan2(100cqw, #{$canvas-w})));
+    transform-origin: 0 0;
+    background: #fff;
+    color: $dark;
+    font-family: var(--font-inter);
+    font-weight: 400;
+    line-height: 1.4;
+    overflow: hidden;
+
+    img {
+      display: block;
+      flex: none;
+    }
+
+    b {
+      font-weight: 600;
+    }
+  }
+
+  // ── шапка ─────────────────────────────────────────────
+  &__header {
+    position: absolute;
+    inset: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: u(64);
+    padding: 0 u(24);
+    background: #fff;
+  }
+
+  &__logo {
+    width: u(144);
+    height: u(24);
+  }
+
+  &__tabs {
+    display: flex;
+    gap: u(24);
+    align-items: center;
+  }
+
+  &__tab {
+    @include trim;
+    display: flex;
+    flex-direction: column;
+    gap: u(25);
+    align-items: center;
+    padding-top: u(26);
+    font-size: u(16);
+    font-weight: 600;
+
+    &::after {
+      content: "";
+      align-self: stretch;
+      height: u(2);
+      border-radius: u(2);
+    }
+
+    &--active {
+      color: $accent;
+
+      &::after {
+        background: $accent;
+      }
+    }
+  }
+
+  &__user {
+    display: flex;
+    gap: u(12);
+    align-items: center;
+    padding: u(4) u(6);
+  }
+
+  &__avatar {
+    width: u(40);
+    height: u(40);
+    border-radius: 50%;
+  }
+
+  &__user-name {
+    display: flex;
+    flex-direction: column;
+    gap: u(8);
+    font-size: u(16);
+    white-space: nowrap;
+
+    span {
+      @include trim;
+    }
+  }
+
+  &__disabled {
+    opacity: 0.4;
+  }
+
+  // ── заголовок и месяц ─────────────────────────────────
+  &__title-row {
+    position: absolute;
+    top: u(112);
+    left: u(465);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: u(1313);
+    height: u(29);
+  }
+
+  &__title {
+    @include trim;
+    margin: 0;
+    font-size: u(40);
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  &__month {
+    display: flex;
+    gap: u(40);
+    align-items: center;
+    font-size: u(24);
+    font-weight: 600;
+    line-height: 1.2;
+
+    > span:first-child {
+      @include trim;
+    }
+  }
+
+  &__pagination {
+    display: flex;
+    gap: u(8);
+
+    img {
+      width: u(24);
+      height: u(24);
+    }
+  }
+
+  // ── фильтры слева ─────────────────────────────────────
+  &__filters {
+    position: absolute;
+    top: u(190);
+    left: u(144);
+    display: flex;
+    flex-direction: column;
+    gap: u(16);
+    width: u(292);
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    gap: u(20);
+    padding: u(20);
+    border-radius: u(4);
+    background: #fff;
+    box-shadow: 0 u(2) u(25) rgba(0, 0, 0, 0.1);
+
+    &--mini {
+      gap: u(12);
+    }
+  }
+
+  &__mini-head,
+  &__card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    img {
+      width: u(24);
+      height: u(24);
+    }
+
+    span {
+      @include trim;
+    }
+  }
+
+  &__mini-head {
+    font-size: u(14);
+  }
+
+  &__card-head {
+    font-size: u(16);
+    font-weight: 600;
+  }
+
+  &__mini {
+    display: grid;
+    grid-template-columns: repeat(7, u(36));
+    grid-auto-rows: u(36);
+    font-size: u(14);
+  }
+
+  &__mini-dow,
+  &__mini-day {
+    display: grid;
+    place-items: center;
+    border: 1px solid transparent;
+    border-radius: u(4);
+  }
+
+  &__mini-dow {
+    color: $tertiary;
+  }
+
+  &__mini-day {
+    &--outside {
+      color: $base;
+    }
+
+    &--today {
+      border-color: $accent;
+      color: $accent;
+    }
+
+    &--chosen-17 {
+      animation: cal-demo-mini-17 $duration infinite;
+    }
+
+    &--chosen-10 {
+      animation: cal-demo-mini-10 $duration infinite;
+    }
+  }
+
+  &__checks {
+    display: flex;
+    flex-direction: column;
+    gap: u(12);
+  }
+
+  &__check {
+    display: flex;
+    gap: u(8);
+    align-items: center;
+
+    img,
+    .cal-demo__box-empty {
+      width: u(18);
+      height: u(18);
+    }
+  }
+
+  &__box-empty {
+    flex: none;
+    border: 1px solid #ffdd32;
+    border-radius: u(2);
+    background: #fff;
+  }
+
+  // «Программирование будущего / и всякого такого» — две строки по 12 px с отступом 4 px
+  &__check-label {
+    font-size: u(12);
+    line-height: u(16);
+    white-space: pre-line;
+  }
+
+  // ── сетка месяца: 6 недель × 7 дней по 188.86 × 160 ──
+  &__grid {
+    position: absolute;
+    top: u(190);
+    left: u(465);
+    width: u(1316);
+  }
+
+  &__week {
+    display: flex;
+  }
+
+  &__cell {
+    position: relative;
+    display: flex;
+    flex: 1 0 0;
+    flex-direction: column;
+    align-items: center;
+    min-width: 0;
+    height: u(160);
+    margin-right: -1px;
+    padding: u(12) u(8);
+    border: 1px solid $base;
+
+    &--events {
+      padding: u(36) u(8) u(8);
+    }
+
+    &--hover-21 {
+      animation: cal-demo-hover-21 $duration infinite;
+    }
+
+    &--hover-14 {
+      animation: cal-demo-hover-14 $duration infinite;
+    }
+
+    &--pick-10 {
+      animation: cal-demo-pick $duration infinite;
+    }
+  }
+
+  &__date {
+    @include trim;
+    font-size: u(16);
+    font-weight: 600;
+    text-align: center;
+
+    .cal-demo__cell--events & {
+      position: absolute;
+      top: u(12);
+      left: 50%;
+      translate: -50% 0;
+    }
+
+    .cal-demo__cell--outside & {
+      color: $base;
+    }
+
+    // сегодня — дата в рамке 28 × 28
+    &--today {
+      display: grid;
+      place-items: center;
+      width: u(28);
+      height: u(28);
+      border: 1px solid $accent;
+      border-radius: u(4);
+      color: $accent;
+      text-box: normal;
+
+      .cal-demo__cell--events & {
+        top: u(4);
+      }
+    }
+  }
+
+  &__events {
+    display: flex;
+    flex-direction: column;
+    gap: u(4);
+    width: 100%;
+  }
+
+  // ── плашки событий ────────────────────────────────────
+  &__event {
+    display: flex;
+    flex: none;
+    gap: u(4);
+    align-items: flex-start;
+    min-width: 0;
+    border-radius: u(4);
+    font-size: u(11);
+    line-height: normal;
+
+    b {
+      @include trim;
+      font-size: u(12);
+      line-height: 1.4;
+      white-space: nowrap;
+    }
+
+    @each $name, $set in $courses {
+      &--#{$name} {
+        border-left: u(3) solid list.nth($set, 1);
+      }
+
+      &--class#{&}--#{$name} {
+        background: list.nth($set, 2);
+      }
+
+      &--test#{&}--#{$name} {
+        background: list.nth($set, 3);
+      }
+    }
+
+    &--class {
+      padding: u(12) u(4) u(12) u(8);
+
+      .cal-demo__event-title {
+        @include trim;
+        white-space: nowrap;
+      }
+    }
+
+    &--deadline,
+    &--test {
+      padding: u(4);
+      font-weight: 600;
+
+      .cal-demo__event-title {
+        display: -webkit-box;
+        height: u(27);
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+      }
+    }
+
+    &--deadline {
+      height: u(35);
+      background: $deadline-bg;
+    }
+
+    &--start {
+      height: u(28);
+      align-items: center;
+      padding: u(4) 0;
+
+      .cal-demo__event-title {
+        @include trim;
+        white-space: nowrap;
+      }
+    }
+
+    &--more {
+      justify-content: center;
+      align-items: center;
+      color: $accent;
+      font-size: u(12);
+
+      span {
+        @include trim;
+      }
+    }
+
+    img {
+      width: u(12);
+      height: u(12);
+    }
+  }
+
+  &__event-lead {
+    display: flex;
+    flex: none;
+    gap: u(2);
+    align-items: center;
+  }
+
+  &__event-title {
+    flex: 1 1 0;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__rocket {
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: u(16);
+    height: u(16);
+
+    img {
+      width: u(13.13);
+      height: u(13.13);
+    }
+  }
+
+  // события за пределами месяца — бледные
+  &__cell--outside &__event {
+    color: $base;
+
+    &--deadline,
+    &--class {
+      border-left-color: rgba(39, 92, 225, 0.3);
+      background: rgba(39, 92, 225, 0.05);
+    }
+  }
+
+  // ── панель дня ────────────────────────────────────────
+  &__panel {
+    position: absolute;
+    top: u(97);
+    left: u(1404);
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    gap: u(36);
+    width: u(516);
+    padding: u(48) u(56);
+    background: #fff;
+    box-shadow: 0 0 u(18.2) rgba(43, 90, 199, 0.1);
+    transform: translateX(105%);
+    animation: cal-demo-panel $duration infinite;
+  }
+
+  &__close {
+    position: absolute;
+    top: u(29);
+    left: u(444);
+    width: u(19);
+    height: u(19);
+    border-radius: 50%;
+    animation: cal-demo-close $duration infinite;
+  }
+
+  &__panel-title {
+    @include trim;
+    margin: 0;
+    font-size: u(24);
+    font-weight: 600;
+    line-height: 1.2;
+    color: #000;
+  }
+
+  &__item {
+    display: flex;
+    gap: u(10);
+  }
+
+  &__bar {
+    flex: none;
+    width: u(4);
+    border-radius: u(8);
+
+    &--red {
+      background: #f3344f;
+    }
+
+    &--green {
+      background: #21cf30;
+    }
+
+    &--purple {
+      background: #d936f6;
+    }
+
+    &--tiffany {
+      background: #21cfc7;
+    }
+  }
+
+  &__item-body {
+    display: flex;
+    flex-direction: column;
+    gap: u(24);
+    width: u(380);
+    padding: u(8) 0;
+  }
+
+  &__item-top {
+    display: flex;
+    flex-direction: column;
+    gap: u(8);
+  }
+
+  &__item-head {
+    display: flex;
+    gap: u(12);
+    align-items: center;
+    font-size: u(16);
+
+    b {
+      @include trim;
+    }
+  }
+
+  &__item-time {
+    display: flex;
+    flex: none;
+    gap: u(4);
+    align-items: center;
+
+    img {
+      width: u(19);
+      height: u(19);
+    }
+  }
+
+  // «Старт модуля 3: изучение новых процессов» переносится на вторую строку
+  &__item-title {
+    max-width: u(306);
+  }
+
+  &__square {
+    flex: none;
+    width: u(19);
+    height: u(19);
+    border-radius: u(4.957);
+    background: #275ce1;
+  }
+
+  &__tag {
+    display: flex;
+    flex-direction: column;
+    gap: u(8);
+    padding: u(8);
+    border-radius: u(7);
+    background: $light;
+    font-size: u(12);
+    color: $base;
+
+    span {
+      @include trim;
+    }
+  }
+
+  &__tag-course {
+    color: $dark;
+  }
+
+  &__item-text {
+    display: flex;
+    flex-direction: column;
+    gap: u(27);
+    font-size: u(14);
+
+    p {
+      @include trim;
+      margin: 0;
+    }
+  }
+
+  &__url {
+    color: $accent;
+    overflow-wrap: anywhere;
+  }
+
+  &__link {
+    @include trim;
+    align-self: flex-start;
+    font-size: u(14);
+    color: $accent;
+    animation: cal-demo-link $duration infinite;
+  }
+
+  // ── курсор и круг клика ───────────────────────────────
+  &__cursor,
+  &__ripple {
+    position: absolute;
+    pointer-events: none;
+  }
+
+  &__cursor {
+    width: u(36);
+    height: u(36);
+    // кончик стрелки — в точке left / top
+    translate: -21% -12%;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.25));
+    animation:
+      cal-demo-cursor $duration infinite,
+      cal-demo-click $duration infinite;
+  }
+
+  &__ripple {
+    width: u(64);
+    height: u(64);
+    border-radius: 50%;
+    background: rgba(91, 129, 226, 0.35);
+    translate: -50% -50%;
+    scale: 0;
+    animation: cal-demo-ripple $duration infinite;
+  }
+
+  // без анимации — финальный кадр: день выбран, панель открыта
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    & {
+      animation: none !important;
+    }
+
+    &__panel {
+      transform: none;
+    }
+
+    &__cell--pick-10 {
+      border-color: $accent;
+      background: $light-blue;
+    }
+
+    &__cursor,
+    &__ripple {
+      display: none;
+    }
+  }
+}
+
+// Точки курсора — пиксели макета в процентах холста 1920 × 1180:
+// старт (1750, 1100) → 21 мая (1510, 770) → 14 мая (1510, 610) → клик по 10 мая (760, 610)
+// → «Перейти к урокам модуля» (1600, 757) → клик по крестику (1858, 136).
+@keyframes cal-demo-cursor {
+  0%,
+  5% {
+    left: 91.15%;
+    top: 93.22%;
+    opacity: 0;
+  }
+  6% {
+    opacity: 1;
+  }
+  14%,
+  24% {
+    left: 78.65%;
+    top: 65.25%;
+  }
+  32%,
+  40% {
+    left: 78.65%;
+    top: 51.69%;
+  }
+  50%,
+  62% {
+    left: 39.58%;
+    top: 51.69%;
+  }
+  70%,
+  78% {
+    left: 83.33%;
+    top: 64.15%;
+  }
+  85%,
+  94% {
+    left: 96.77%;
+    top: 11.53%;
+    opacity: 1;
+  }
+  100% {
+    left: 96.77%;
+    top: 11.53%;
+    opacity: 0;
+  }
+}
+
+@keyframes cal-demo-click {
+  0%,
+  53%,
+  56%,
+  87%,
+  90%,
+  100% {
+    scale: 1;
+  }
+  54.5%,
+  88.5% {
+    scale: 0.8;
+  }
+}
+
+@keyframes cal-demo-ripple {
+  0%,
+  54% {
+    left: 39.58%;
+    top: 51.69%;
+    scale: 0;
+    opacity: 1;
+  }
+  60% {
+    left: 39.58%;
+    top: 51.69%;
+    scale: 1;
+    opacity: 0;
+  }
+  60.1%,
+  88% {
+    left: 96.77%;
+    top: 11.53%;
+    scale: 0;
+    opacity: 1;
+  }
+  93%,
+  100% {
+    left: 96.77%;
+    top: 11.53%;
+    scale: 0.6;
+    opacity: 0;
+  }
+}
+
+// наведения в макете нет — подсвечиваем ячейку полупрозрачной заливкой выбранной даты
+@keyframes cal-demo-hover-21 {
+  0%,
+  13%,
+  26%,
+  100% {
+    background: transparent;
+  }
+  15%,
+  24% {
+    background: rgba(225, 234, 255, 0.6);
+  }
+}
+
+@keyframes cal-demo-hover-14 {
+  0%,
+  31%,
+  42%,
+  100% {
+    background: transparent;
+  }
+  33%,
+  40% {
+    background: rgba(225, 234, 255, 0.6);
+  }
+}
+
+// выбранная дата — как в макете: заливка secondary/light-blue и обводка accent/primary
+@keyframes cal-demo-pick {
+  0%,
+  48%,
+  100% {
+    border-color: $base;
+    background: transparent;
+  }
+  50%,
+  54% {
+    border-color: $base;
+    background: rgba(225, 234, 255, 0.6);
+  }
+  55%,
+  90% {
+    border-color: $accent;
+    background: $light-blue;
+  }
+  93% {
+    border-color: $base;
+    background: transparent;
+  }
+}
+
+@keyframes cal-demo-mini-17 {
+  0%,
+  54%,
+  93%,
+  100% {
+    border-color: $accent;
+    background: $accent;
+    color: #fff;
+  }
+  56%,
+  90% {
+    border-color: transparent;
+    background: transparent;
+    color: $dark;
+  }
+}
+
+@keyframes cal-demo-mini-10 {
+  0%,
+  54%,
+  93%,
+  100% {
+    border-color: transparent;
+    background: transparent;
+    color: $dark;
+  }
+  56%,
+  90% {
+    border-color: $accent;
+    background: $accent;
+    color: #fff;
+  }
+}
+
+@keyframes cal-demo-panel {
+  0%,
+  56% {
+    transform: translateX(105%);
+    animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  62%,
+  89% {
+    transform: translateX(0);
+    animation-timing-function: cubic-bezier(0.6, 0, 0.8, 0.4);
+  }
+  94%,
+  100% {
+    transform: translateX(105%);
+  }
+}
+
+@keyframes cal-demo-link {
+  0%,
+  71%,
+  79%,
+  100% {
+    text-decoration: none;
+  }
+  72%,
+  78% {
+    text-decoration: underline;
+  }
+}
+
+@keyframes cal-demo-close {
+  0%,
+  84%,
+  90%,
+  100% {
+    background: transparent;
+  }
+  85%,
+  89% {
+    background: $light;
+  }
+}

@@ -3,4 +3,5 @@ export * from "./routes";
 export * from "./contacts";
 export * from "./format";
 export * from "./projects";
+export * from "./case-gallery";
 export * from "./responsive";
